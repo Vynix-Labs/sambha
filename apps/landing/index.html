@@ -4,7 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Sambha - Simplifying Event Planning</title>
+    
+    <!-- Preload Fractul fonts -->
+    <link rel="preload" href="/src/assets/Fractul/Fractul-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/src/assets/Fractul/Fractul-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/src/assets/Fractul/Fractul-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <style>
+      @font-face {
+        font-family: 'Fractul';
+        src: url('/src/assets/Fractul/Fractul-Regular.woff2') format('woff2'),
+             url('/src/assets/Fractul/Fractul-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Fractul';
+        src: url('/src/assets/Fractul/Fractul-Medium.woff2') format('woff2'),
+             url('/src/assets/Fractul/Fractul-Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Fractul';
+        src: url('/src/assets/Fractul/Fractul-SemiBold.woff2') format('woff2'),
+             url('/src/assets/Fractul/Fractul-SemiBold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
