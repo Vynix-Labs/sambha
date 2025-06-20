@@ -1,4 +1,5 @@
 import Image, { type ImageProps } from "next/image";
+import React from "react";
 import { Button } from "@sambha/ui/button";
 import styles from "./page.module.css";
 
@@ -7,7 +8,7 @@ type Props = Omit<ImageProps, "src"> & {
   srcDark: string;
 };
 
-const ThemeImage = (props: Props) => {
+const ThemeImage = (props: Props): React.ReactElement => {
   const { srcLight, srcDark, ...rest } = props;
 
   return (
@@ -18,7 +19,7 @@ const ThemeImage = (props: Props) => {
   );
 };
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
