@@ -48,6 +48,7 @@ export const useWaitlist = () => {
                         setMessage('')
                         return { success: true, user: stats.user }
                     } catch (statsError) {
+                        console.error('Failed to get stats for existing user:', statsError)
                         setMessage(MESSAGES.ALREADY_EXISTS)
                         return { success: false, error: 'User already exists' }
                     }
