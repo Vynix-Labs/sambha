@@ -52,5 +52,9 @@
     "nft",
     "web3"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
