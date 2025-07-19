@@ -1,6 +1,10 @@
 {
   "extends": "@sambha/typescript-config/nextjs.json",
   "compilerOptions": {
+    "baseUrl": ".", // 👈 required
+    "paths": {
+      "@/*": ["./src/*"] // 👈 change `src` to root-level if needed
+    },
     "plugins": [
       {
         "name": "next"
@@ -16,7 +20,5 @@
     "../../packages/ui/src/**/*.ts",
     "../../packages/ui/src/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
