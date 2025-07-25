@@ -10,7 +10,29 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "devDependencies": {
+    "@sambha/eslint-config": "workspace:*",
+    "@sambha/typescript-config": "workspace:*",
+    "@turbo/gen": "^2.5.0",
+    "@types/node": "^22.15.3",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "eslint": "^9.27.0",
+    "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.7",
+    "lucide-react": "^0.525.0",
+    "react-toastify": "^11.0.5",
+    "jotai": "^2.12.5",
+    "react-form-hook": "^0.0.1",
+    "class-variance-authority": "^0.7.1"
+  }
 
 }

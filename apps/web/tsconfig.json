@@ -31,7 +31,8 @@
     "next.config.js",
     ".next/types/**/*.ts",
     "../../packages/ui/src/**/*.ts",
-    "../../packages/ui/src/**/*.tsx"
+    "../../packages/ui/src/**/*.tsx",
+    "app/(dashboard)/event-planner/events/createEvent"
   ],
   "exclude": ["node_modules"]
 }
