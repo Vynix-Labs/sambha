@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { ViewButton } from "./Details";
 import { SearchFilter } from "./GuestSelector";
 
-// types.ts or at the top of your file
 type TableShape = {
   id: number;
   className: string;
-  name: string; // 👈 Add this line
+  name: string;
+  type: "round" | "rectangle" | "long";
+  seats: number;
+  position: { x: number; y: number };
 };
 
 type TableItemsProps = {
@@ -19,23 +21,30 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
   const tableTypes = [
     {
       name: "Long Table",
-      className: "w-20 h-10 bg-purple-base border-primary-black border-4 ",
+      className: "w-20 h-10 bg-purple-base border-primary-darkPurple border-4",
+      type: "long" as const,
+      seats: 8,
     },
     {
       name: "Round Table",
       className:
-        "w-20 h-20 bg-purple-base border-primary-black border-4 rounded-full",
+        "w-20 h-20 bg-purple-base border-primary-darkPurple border-4 rounded-full",
+      type: "round" as const,
+      seats: 6,
     },
     {
       name: "Large Table",
-      className: "w-32 h-28 bg-purple-base border-primary-black border-4",
+      className: "w-32 h-28 bg-purple-base border-primary-darkPurple border-4",
+      type: "rectangle" as const,
+      seats: 10,
     },
     {
       name: "Seating row",
-      // className: "w-4 h-4 bg-purple-base rounded-full",
       circleTables: Array.from({ length: 6 }, () => ({
         className: "w-4 h-4 bg-purple-base rounded-full",
       })),
+      type: "long" as const,
+      seats: 6,
     },
   ];
 
@@ -43,16 +52,16 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
     const selected = name === selectedTable ? null : name;
     setSelectedTable(selected);
 
-    // If selected is not null, call onSelectTable with the data
     if (selected) {
       const table = tableTypes.find((t) => t.name === selected);
-
       if (table) {
         onSelectTable({
           id: tableTypes.indexOf(table),
-          // className: table.className,
           className: table.className ?? "",
           name: table.name,
+          type: table.type,
+          seats: table.seats,
+          position: { x: 0, y: 0 }, // Default position
         });
       }
     }
@@ -78,13 +87,10 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
                 className="flex flex-col cursor-pointer"
                 onClick={() => handleTableClick(table.name)}
               >
-                {/* Render either main shape OR looped circles */}
                 {!table.circleTables ? (
-                  // Single shape table
                   <div className={table.className} />
                 ) : (
-                  // Seating row (looped circles)
-                  <div className="flex ">
+                  <div className="flex gap-1">
                     {table.circleTables.map((circle, idx) => (
                       <div key={idx} className={circle.className} />
                     ))}

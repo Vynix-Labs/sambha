@@ -14,6 +14,9 @@ type TableShape = {
   id: number;
   className: string;
   name: string;
+  type: "round" | "rectangle" | "long"; // Added missing type property
+  seats: number; // Added seats property since it's used in the component
+  position: { x: number; y: number }; // Added position property
 };
 
 type Guest = {
@@ -57,7 +60,7 @@ export default function CreateSittingChartPage() {
   const addGuest = (index: number) => {
     const name = prompt("Enter guest name");
     if (!name) return;
-    
+
     const updated = [...assignedSeats];
     updated[index] = { name };
     setAssignedSeats(updated);
