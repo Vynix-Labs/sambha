@@ -57,6 +57,7 @@ export default function CreateSittingChartPage() {
   const addGuest = (index: number) => {
     const name = prompt("Enter guest name");
     if (!name) return;
+    
     const updated = [...assignedSeats];
     updated[index] = { name };
     setAssignedSeats(updated);
