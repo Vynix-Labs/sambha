@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types", "./types"]
     "jsx": "preserve"
   },
   "include": ["src"],

@@ -25,6 +25,13 @@
       "@sambha/ui/*": ["./packages/ui/src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "apps/web/app/(dashboard)/event-planner/events/createEvent"
+  ],
+
   "exclude": ["**/node_modules", "**/dist", "**/build", "**/.next"]
 }

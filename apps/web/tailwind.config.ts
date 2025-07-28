@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -57,6 +56,16 @@ const config: Config = {
           black: "#000000", // Darker blue for hover
           deepBlue: "#2B2BCF",
         },
+        gray: {
+          base: "#6B7280", // Medium gray for disabled text
+          500: "#616161",
+          600: "#98A2B3",
+          650: "#78788029",
+          900: "#101828",
+          950: "#070D17",
+
+          100: "#EBECEE",
+        },
         // gray: {
         //   base: "#6B7280", // Medium gray for disabled text
         //   100: "#EBECEE",
@@ -68,6 +77,15 @@ const config: Config = {
 
         white: {
           base: "#F3F4F6", // Light gray for disabled background
+          900: "#F9F9F9",
+          800: "#EBECEE",
+        },
+        black: {
+          400: "#52575C",
+          100: "#000000",
+        },
+        error: {
+          50: "#DC2626",
           80: "#F9F9F9",
           90: "#EBECEE",
         },
@@ -83,7 +101,6 @@ const config: Config = {
         red: {
           base: "#DD524D",
           10: "#FBEAE9",
-
         },
       },
        fontFamily: {
@@ -97,6 +114,9 @@ const config: Config = {
       backgroundImage: {
         "gradient-primary": "linear-gradient(to bottom,  #C96FFF, #2B2BCF)",
         gradientText: "linear-gradient(to bottom, #C96FFF, #2B2BCF)",
+      },
+      borderImage: {
+        "gradient-primary": "linear-gradient(to right, #C96FFF, #2B2BCF)",
       },
     },
   },
