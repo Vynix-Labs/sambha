@@ -115,7 +115,7 @@ export default function CreateSittingChartPage() {
         }`}
       >
         <div
-          className={`md:max-w-[30%] w-full md:pr-8 px-4 md:px-0 ${
+          className={`md:max-w-[30%] w-full h-full md:pr-8 px-4 md:px-0 ${
             selectedTable ? "md:pl-4 border-l" : "border-r"
           }`}
         >
