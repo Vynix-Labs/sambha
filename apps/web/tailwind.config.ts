@@ -66,10 +66,14 @@ const config: Config = {
 
           100: "#EBECEE",
         },
+        // gray: {
+        //   base: "#6B7280", // Medium gray for disabled text
+        //   100: "#EBECEE",
+        // },
 
-        neutral: {
-          black: "#070D17",
-        },
+        // neutral: {
+        //   black: "#070D17",
+        // },
 
         white: {
           base: "#F3F4F6", // Light gray for disabled background
@@ -85,9 +89,9 @@ const config: Config = {
           80: "#F9F9F9",
           90: "#EBECEE",
         },
-        green: {
-          900: "#0F2501",
-        },
+        // green: {
+        //   900: "#0F2501",
+        // },
 
         purple: {
           base: "#6E48E3",
@@ -99,6 +103,13 @@ const config: Config = {
           10: "#FBEAE9",
         },
       },
+       fontFamily: {
+        fractul: ["Fractul", "sans-serif"],
+      },
+         screens: {
+        'mdlg': { 'raw': '(max-width: 1026px)' },
+      },
+      sidebar: "#2A1D52",
 
       backgroundImage: {
         "gradient-primary": "linear-gradient(to bottom,  #C96FFF, #2B2BCF)",

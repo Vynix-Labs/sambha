@@ -14,6 +14,7 @@ import MessageIcon from "components/icons/MessageIcon";
 import ThemeIcon from "components/icons/ThemeIcon";
 import GuestIcon from "components/icons/GuestIcon";
 import PencilIconEdit from "components/icons/PencilIconEdit";
+import { ThemeConfig } from "types/theme";
 
 const icons = [
   { label: "Edit", icon: <PencilIconEdit /> },
@@ -46,9 +47,14 @@ export function ViewButton() {
 }
 
 // details component
-export default function Details() {
+interface DetailsProps {
+  theme: ThemeConfig;
+  onThemeClick: () => void;
+}
+
+export default function Details({ theme, onThemeClick }: DetailsProps) {
   return (
-    <div className="py-4 w-full">
+    <div className={`py-4 w-full ${theme.styles.contentBg}`}>
       <div className="flex flex-col md:flex-row md:gap-4 gap-8 w-full">
         <div className="md:max-w-[60%] w-full">
           <div className="h-[317px] w-full">
@@ -142,13 +148,20 @@ export default function Details() {
           {/* icons */}
           <div className="flex justify-between w-full py-4">
             {icons.map(({ label, icon }, index) => (
-              <div key={index} className="flex flex-col items-center gap-2">
-                <div className="bg-white-90 rounded-full p-4 hover:scale-105 shadow">
+              <div
+                key={index}
+                className="flex flex-col items-center gap-2"
+                onClick={label === "Theme" ? onThemeClick : undefined} // Opens theme selector when Theme icon is clicked
+              >
+                <div
+                  className={`${theme.styles.cardBg
+                    } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+                >
                   {React.cloneElement(icon, {
-                    className: "md:w-8 md:h-8 text-primary",
+                    className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
                   })}
                 </div>
-                <h1 className="text-sm text-neutral-black font-medium">
+                <h1 className={`text-sm ${theme.styles.primaryText} font-medium`}>
                   {label}
                 </h1>
               </div>
