@@ -42,13 +42,14 @@ export default function CreateSittingChartPage() {
   const [seatCount, setSeatCount] = useState<number>(1);
   const [assignedSeats, setAssignedSeats] = useState<(Guest | null)[]>([null]);
 
+  // to increase sit number
   const incrementSeat = () => {
     setSeatCount((prev) => {
       setAssignedSeats((prevSeats) => [...prevSeats, null]);
       return prev + 1;
     });
   };
-
+  //  to decrease sit number
   const decrementSeat = () => {
     setSeatCount((prev) => {
       if (prev <= 1) return prev;
@@ -56,7 +57,7 @@ export default function CreateSittingChartPage() {
       return prev - 1;
     });
   };
-
+  //  to add guest
   const addGuest = (index: number) => {
     const name = prompt("Enter guest name");
     if (!name) return;
@@ -65,13 +66,14 @@ export default function CreateSittingChartPage() {
     updated[index] = { name };
     setAssignedSeats(updated);
   };
-
+  //  to remove guest
   const removeGuest = (index: number) => {
     const updated = [...assignedSeats];
     updated[index] = null;
     setAssignedSeats(updated);
   };
 
+  // render tab items when being clicked
   const renderContent = () => {
     switch (activeTab) {
       case "Items":
@@ -99,34 +101,39 @@ export default function CreateSittingChartPage() {
   };
 
   return (
-    <div className="py-6 space-y-4">
+    <div className="py-6 space-y-4 min-h-screen">
       <Breadcrumb eventSlug={eventSlug as string} currentEvent={currentEvent} />
 
       <div>
         <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
 
-      {/* to display render  */}
+      {/* Main content area */}
       <div
-        className={`flex w-full h-[743px] ${
+        className={`flex w-full flex-grow ${
           selectedTable
             ? "flex-col-reverse md:flex-row-reverse"
             : "flex-col md:flex-row"
         }`}
+        style={{ minHeight: "calc(100vh - 200px)" }} // Adjust 200px based on your header height
       >
+        {/* Left panel (content) */}
         <div
-          className={`md:max-w-[30%] w-full h-full md:pr-8 px-4 md:px-0 ${
+          className={`md:max-w-[30%] w-full ${
             selectedTable ? "md:pl-4 border-l" : "border-r"
-          }`}
+          } overflow-auto`} // Added overflow-auto for scrollable content
         >
           {renderContent()}
         </div>
 
-        <TableVisualization
-          selectedTable={selectedTable || undefined} // Convert null to undefined
-          seatCount={seatCount}
-          assignedSeats={assignedSeats}
-        />
+        {/* Right panel (table visualization) */}
+        <div className="flex-1 overflow-hidden min-h-[400px]">
+          <TableVisualization
+            selectedTable={selectedTable || undefined}
+            seatCount={seatCount}
+            assignedSeats={assignedSeats}
+          />
+        </div>
       </div>
     </div>
   );

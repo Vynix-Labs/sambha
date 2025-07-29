@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-
+import React, { useEffect, useRef } from "react";
+import interact from "interactjs";
 export interface Guest {
   name: string;
 }
@@ -18,15 +18,20 @@ interface TableVisualizationProps {
   selectedTable?: TableShape;
   seatCount: number;
   assignedSeats: (Guest | null)[];
-  onTableClick?: () => void; // Added click handler prop
+  // onTableClick?: () => void; // Added click handler prop
 }
 
 export const TableVisualization = ({
   selectedTable,
   seatCount,
   assignedSeats,
-  onTableClick,
+  // onTableClick,
 }: TableVisualizationProps) => {
+  const tableRef = useRef<HTMLDivElement>(null);
+
+
+ 
+  // this to get the sit arragement for guest
   const getSeatPositions = () => {
     if (!selectedTable) return [];
 
@@ -113,7 +118,7 @@ export const TableVisualization = ({
   const seatPositions = getSeatPositions();
 
   return (
-    <div className="flex-1 bg-white-base rounded-r-2xl flex items-center justify-center relative pl-4">
+    <div className="h-full w-full bg-white-base rounded-r-2xl flex items-center justify-center relative pl-4">
       <div
         className="relative w-[600px] h-[500px] bg-primary-light"
         style={{
@@ -137,8 +142,9 @@ export const TableVisualization = ({
 
         {selectedTable && (
           <div className="absolute inset-0 h-full w-full">
-            {/* Table visualization - made clickable */}
+            {/* Table visualization - Draggable table  */}
             <div
+              ref={tableRef}
               className={`${selectedTable.className} flex items-center justify-center text-white font-medium text-primary-light text-sm cursor-pointer`}
               style={{
                 width:
@@ -159,10 +165,13 @@ export const TableVisualization = ({
                 top: `${selectedTable.position.y}px`, // Use the table's y position
                 // left: "50%",
                 // top: "50%",
-                transform: "translate(-50%, -50%)",
+                // transform: "translate(-50%, -50%)",
+                transform: "translate(0, 0)", // Removed the -50% transform
+                userSelect: "none",
                 pointerEvents: "auto", // Ensure it can receive clicks
               }}
-              onClick={onTableClick}
+              data-x={selectedTable.position.x}
+              data-y={selectedTable.position.y}
             >
               Table {selectedTable.id + 1}
             </div>

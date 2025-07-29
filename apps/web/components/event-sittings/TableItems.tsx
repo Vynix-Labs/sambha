@@ -68,7 +68,7 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
   };
 
   return (
-    <div className="flex flex-col w-full py-4 space-y-6">
+    <div className="flex flex-col w-full py-4 space-y-6 px-4">
       {!selectedTable && (
         <>
           <div className="flex justify-between w-full">
