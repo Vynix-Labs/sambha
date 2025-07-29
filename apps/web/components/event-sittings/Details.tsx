@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import Image from "next/image";
+import React, { useRef, useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import bgImage from "../../assets/images/bgImage.png";
 import adaImage from "../../assets/svgs/addImage.svg";
 import FullMapImage from "../../assets/images/FullMap.png";
@@ -29,7 +29,7 @@ const event = {
   name: "Oliver & Emily's Wedding",
 };
 
-export function ViewButton() {
+export function ViewButton({ theme }: { theme: ThemeConfig }) {
   return (
     <button className="flex items-center md:w-auto justify-center gap-2 rounded-full text-gray-base  hover:text-gray-400 text-sm font-medium transition">
       View all
@@ -45,21 +45,41 @@ export function ViewButton() {
     </button>
   );
 }
-
-// details component
 interface DetailsProps {
   theme: ThemeConfig;
   onThemeClick: () => void;
 }
 
+// details component
 export default function Details({ theme, onThemeClick }: DetailsProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [imageSrc, setImageSrc] = useState<string | StaticImageData>(bgImage); // fallback default `${bgImage}`
+
+  const handleEditClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setImageSrc(reader.result); // Update the image shown
+      }
+    };
+    reader.readAsDataURL(file); // Convert image to base64
+  };
   return (
-    <div className={`py-4 w-full ${theme.styles.contentBg}`}>
-      <div className="flex flex-col md:flex-row md:gap-4 gap-8 w-full">
-        <div className="md:max-w-[60%] w-full">
+    <div className="py-4 ">
+      <div className="flex flex-col mdlg:flex-col lg:flex-row md:gap-4 gap-8 w-full">
+        {/* max-w-[60%] w-full */}
+        <div className="  w-full">
           <div className="h-[317px] w-full">
             <Image
-              src={bgImage}
+              // src={bgImage}
+              src={imageSrc}
               alt="Background Image"
               width={500}
               height={500}
@@ -78,18 +98,26 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                   quality={100}
                   className="h-full w-full rounded-lg"
                 />
+
                 <button
                   className=" justify-center z-10 rounded-md bg-white/80 px-4 py-2 text-sm font-medium text-primary-light shadow hover:bg-white"
-                  onClick={() => alert("Edit background clicked")}
+                  onClick={handleEditClick}
                 >
                   Edit Background
                 </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
               </div>
             </div>
           </div>
 
           <div className="py-4 space-y-3">
-            <TeamMembers />
+            <TeamMembers theme={theme} />
 
             {/* table for guest */}
             <div className="flex space-y-3 flex-col">
@@ -102,7 +130,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                     Add event managers to see your event through.
                   </p>
                 </div>
-                <ViewButton />
+                <ViewButton theme={theme} />
               </div>
 
               <div className="grid grid-cols-3 w-full">
@@ -123,8 +151,8 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
           </div>
         </div>
 
-        {/* ✅ Slug-aware navigation */}
-        <div className="space-y-4 md:max-w-[426px] w-full md:px-4">
+        {/* ✅ Slug-aware navigation lg:max-w-[426px] */}
+        <div className="space-y-4 w-full md:px-4">
           <div className="space-y-2 ">
             <h1 className="font-semibold text-primary-darkPurple text-xl md:text-2xl ">
               {event.name}
@@ -148,20 +176,20 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
           {/* icons */}
           <div className="flex justify-between w-full py-4">
             {icons.map(({ label, icon }, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center gap-2"
-                onClick={label === "Theme" ? onThemeClick : undefined} // Opens theme selector when Theme icon is clicked
-              >
-                <div
-                  className={`${theme.styles.cardBg
-                    } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+              <div key={index} className="flex flex-col items-center gap-2">
+                <div className="bg-white-90 rounded-full p-4 hover:scale-105 shadow"
+                  onClick={() => {
+                    if (label === "Theme") {
+                      onThemeClick(); // Open ThemeSelector
+                    }
+                  }}
                 >
                   {React.cloneElement(icon, {
-                    className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
+                    className: "md:w-8 md:h-8 text-primary",
                   })}
+
                 </div>
-                <h1 className={`text-sm ${theme.styles.primaryText} font-medium`}>
+                <h1 className="text-sm text-neutral-black font-medium">
                   {label}
                 </h1>
               </div>

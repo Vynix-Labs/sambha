@@ -1,15 +1,15 @@
 import { StaticImageData } from "next/image";
-import frame1 from "../public/event-planner/Frame 1.png";
-import frame2 from "../../../../public/event-planner/Frame 2.png";
-import frame3 from "../../../../public/event-planner/Frame 3.png";
-import frame4 from "../../../../public/event-planner/Frame 4.png";
-import frame5 from "../../../../public/event-planner/Frame 5.png";
-import frame6 from "../../../../public/event-planner/Frame 6.png";
-import frame7 from "../../../../public/event-planner/Frame 7.png";
-import frame8 from "../../../../public/event-planner/Frame 8.png";
-import frame9 from "../../../../public/event-planner/Frame 9.png";
-import frame10 from "../../../../public/event-planner/Frame 10.png";
-import frame11 from "../../../../public/event-planner/Frame 11.png";
+import frame1 from "../../web/public/event-planner/Frame 1.png";
+import frame2 from "../../web/public/event-planner/Frame 2.png";
+import frame3 from "../../web/public/event-planner/Frame 3.png";
+import frame4 from "../../web/public/event-planner/Frame 4.png";
+import frame5 from "../../web/public/event-planner/Frame 5.png";
+import frame6 from "../../web/public/event-planner/Frame 6.png";
+import frame7 from "../../web/public/event-planner/Frame 7.png";
+import frame8 from "../../web/public/event-planner/Frame 8.png";
+import frame9 from "../../web/public/event-planner/Frame 9.png";
+import frame10 from "../../web/public/event-planner/Frame 10.png";
+import frame11 from "../../web/public/event-planner/Frame 11.png";
 
 export type ThemeConfig = {
   name: string;

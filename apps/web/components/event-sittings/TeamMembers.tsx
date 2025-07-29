@@ -8,6 +8,7 @@ import gradient from "../../assets/images/gradient.png";
 import PlusIcon from "components/icons/PlusIcon";
 import EditIcon from "components/icons/EditIcon";
 import { TrashIcon } from "lucide-react";
+import { ThemeConfig } from "types/theme";
 
 interface Member {
   id: number;
@@ -16,6 +17,11 @@ interface Member {
   avatar: string | StaticImageData; // Properly typed for Next.js Image component
   role: string;
 }
+
+interface TeamMembersProps {
+  theme: ThemeConfig;
+}
+
 
 function AddButton({
   onClick,
@@ -35,7 +41,7 @@ function AddButton({
   );
 }
 
-export default function TeamMembers() {
+export default function TeamMembers({ theme }: TeamMembersProps) {
   const [showModal, setShowModal] = useState(false);
   const [teamMembers, setTeamMembers] = useState<Member[]>([
     {
