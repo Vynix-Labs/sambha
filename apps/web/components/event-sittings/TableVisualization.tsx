@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import interact from "interactjs";
+import React from "react";
+
 export interface Guest {
   name: string;
 }
@@ -27,10 +27,6 @@ export const TableVisualization = ({
   assignedSeats,
   // onTableClick,
 }: TableVisualizationProps) => {
-  const tableRef = useRef<HTMLDivElement>(null);
-
-
- 
   // this to get the sit arragement for guest
   const getSeatPositions = () => {
     if (!selectedTable) return [];
@@ -120,7 +116,7 @@ export const TableVisualization = ({
   return (
     <div className="h-full w-full bg-white-base rounded-r-2xl flex items-center justify-center relative pl-4">
       <div
-        className="relative w-[600px] h-[500px] bg-primary-light"
+        className="relative w-[600px] h-[500px] bg-primary-light "
         style={{
           backgroundImage: `
             linear-gradient(to right, #98A2B3 1px, transparent 1px),
@@ -144,7 +140,6 @@ export const TableVisualization = ({
           <div className="absolute inset-0 h-full w-full">
             {/* Table visualization - Draggable table  */}
             <div
-              ref={tableRef}
               className={`${selectedTable.className} flex items-center justify-center text-white font-medium text-primary-light text-sm cursor-pointer`}
               style={{
                 width:
@@ -161,13 +156,13 @@ export const TableVisualization = ({
                       : "150px",
                 borderRadius: selectedTable.type === "round" ? "50%" : "8px",
                 position: "absolute",
-                left: `${selectedTable.position.x}px`, // Use the table's x position
-                top: `${selectedTable.position.y}px`, // Use the table's y position
-                // left: "50%",
-                // top: "50%",
-                // transform: "translate(-50%, -50%)",
-                transform: "translate(0, 0)", // Removed the -50% transform
+                // left: `${selectedTable.position.x}px`, // Use the table's x position
+                // top: `${selectedTable.position.y}px`, // Use the table's y position
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
                 userSelect: "none",
+                // zIndex: 10,
                 pointerEvents: "auto", // Ensure it can receive clicks
               }}
               data-x={selectedTable.position.x}
@@ -180,10 +175,12 @@ export const TableVisualization = ({
             {seatPositions.map((position, index) => (
               <div
                 key={index}
-                className="absolute flex flex-col items-center justify-center p-4"
+                className=" flex flex-col items-center justify-center p-4"
                 style={{
-                  left: `calc(0% + ${position.x}px)`,
-                  top: `calc(0% + ${position.y}px)`,
+                  left: `calc(50% + ${position.x}px)`,
+                  top: `calc(50% + ${position.y}px)`,
+
+                  position: "absolute",
                   transform: "translate(-50%, -50%)",
                   pointerEvents: "auto", // Ensure seats can receive clicks
                 }}

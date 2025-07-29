@@ -38,14 +38,14 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
       type: "rectangle" as const,
       seats: 10,
     },
-    {
-      name: "Seating row",
-      circleTables: Array.from({ length: 6 }, () => ({
-        className: "w-4 h-4 bg-purple-base rounded-full",
-      })),
-      type: "long" as const,
-      seats: 6,
-    },
+    // {
+    //   name: "Seating row",
+    //   circleTables: Array.from({ length: 6 }, () => ({
+    //     className: "w-4 h-4 bg-purple-base rounded-full",
+    //   })),
+    //   type: "long" as const,
+    //   seats: 6,
+    // },
   ];
 
   const handleTableClick = (name: string) => {
@@ -87,15 +87,7 @@ export default function TableItems({ onSelectTable }: TableItemsProps) {
                 className="flex flex-col cursor-pointer"
                 onClick={() => handleTableClick(table.name)}
               >
-                {!table.circleTables ? (
-                  <div className={table.className} />
-                ) : (
-                  <div className="flex gap-1">
-                    {table.circleTables.map((circle, idx) => (
-                      <div key={idx} className={circle.className} />
-                    ))}
-                  </div>
-                )}
+                {table && <div className={table.className} />}
                 <h6 className="text-gray-base text-sm mt-1">{table.name}</h6>
               </div>
             ))}
