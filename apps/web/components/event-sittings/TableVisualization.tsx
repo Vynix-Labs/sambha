@@ -116,7 +116,7 @@ export const TableVisualization = ({
   return (
     <div className="h-full w-full bg-white-base rounded-r-2xl flex items-center justify-center relative pl-4">
       <div
-        className="relative w-[600px] h-[500px] bg-primary-light "
+        className="relative w-[800px] h-[600px] bg-primary-light "
         style={{
           backgroundImage: `
             linear-gradient(to right, #98A2B3 1px, transparent 1px),
