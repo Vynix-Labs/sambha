@@ -14,6 +14,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Host } from "../../types/events/data";
 import { v4 as uuidv4 } from "uuid";
 import { PlaceHolder } from "@sambha/ui/icons";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createGroupSchema } from "schemas/createGroupValidation";
 
 export const CreateGroup = () => {
   const [users, setUsers] = useAtom(usersAtom);
@@ -50,125 +53,146 @@ export const CreateGroup = () => {
     inputRef.current?.click();
   };
 
-  // ...
+  const {
+  register,
+  handleSubmit,
+  getValues, 
+  formState: { errors, isSubmitting },
+} = useForm({
+  resolver: yupResolver(createGroupSchema),
+  defaultValues:{
+    groupName: ''
+  }
+});
 
-  const handleCreateGroup = () => {
-    if (!selectedUsers.length) return;
+const onSubmit = () => {
+  const formGroupName = getValues("groupName");
 
-    const groupId = uuidv4();
+  if (!selectedUsers.length) return;
 
-    const newGroup: Host = {
-      id: groupId,
-      name: groupName ?? "New Group",
-      image: groupImage
-        ? URL.createObjectURL(groupImage)
-        : "/default-group.png",
-      phoneNumber: "",
-      verified: false,
-      category: "host",
-      members: selectedUsers.map((u) => ({
-        id: u.id,
-        name: u.name,
-        image: u.image,
-      })),
-      membersTotal: selectedUsers.length,
-      dateCreated: new Date().toISOString(),
-    };
+  const groupId = uuidv4();
 
-    setUsers((prev) => ({
-      ...prev,
-      [groupId]: newGroup,
-    }));
-
-    setGroups((prev) => [...prev, newGroup]);
-
-    setStep(1);
-    setSelected([]);
-    setGroupImage(null);
-    setSearchTerm("");
+  const newGroup: Host = {
+    id: groupId,
+    name: formGroupName,
+    image: groupImage
+      ? URL.createObjectURL(groupImage)
+      : "/default-group.png",
+    phoneNumber: "",
+    verified: false,
+    category: "host",
+    members: selectedUsers.map((u) => ({
+      id: u.id,
+      name: u.name,
+      image: u.image,
+    })),
+    membersTotal: selectedUsers.length,
+    dateCreated: new Date().toISOString(),
   };
 
+  setUsers((prev) => ({
+    ...prev,
+    [groupId]: newGroup,
+  }));
+
+  setGroups((prev) => [...prev, newGroup]);
+
+  setStep(1);
+  setSelected([]);
+  setGroupImage(null);
+  setSearchTerm("");
+};
+
   if (step === 2) {
-    return (
-      <div className="space-y-4">
-        <button
-          onClick={() => setStep(1)}
-          className="inline-flex items-center space-x-2 text-sm"
-        >
-          <IoIosArrowBack /> Back
-        </button>
-        <div className="flex flex-col space-y-2">
-          <div className="relative w-24 h-24">
-            {groupImage ? (
-              <Image
-                width={24}
-                height={24}
-                src={URL.createObjectURL(groupImage)}
-                alt="Preview Image"
-                className="w-24 h-24 rounded-full object-cover"
-              />
-            ) : (
-              <PlaceHolder />
-            )}
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <button
+        onClick={() => setStep(1)}
+        type="button"
+        className="inline-flex items-center space-x-2 text-sm"
+      >
+        <IoIosArrowBack /> Back
+      </button>
 
-            <button
-              type="button"
-              onClick={triggerFileInput}
-              className="absolute -bottom-2 right-2 bg-gray-dark border-white border-2 rounded-full p-1 shadow"
-            >
-              <IoCameraOutline className="w-4 h-4 text-white " />
-            </button>
-            <input
-              type="file"
-              accept="image/*"
-              ref={inputRef}
-              onChange={handleImageChange}
-              className="hidden"
+      {/* Group Image Section */}
+      <div className="flex flex-col space-y-2">
+        <div className="relative w-24 h-24">
+          {groupImage ? (
+            <Image
+              width={24}
+              height={24}
+              src={URL.createObjectURL(groupImage)}
+              alt="Preview Image"
+              className="w-24 h-24 rounded-full object-cover"
             />
-          </div>
-        </div>
+          ) : (
+            <PlaceHolder />
+          )}
 
-        <div>
-          <div className="my-6 space-y-2">
-            <label htmlFor="groupname">Group Name</label>
-            <Input
-              id="groupname"
-              value={groupName}
-              onChange={(e) => setGroupName(e.target.value)}
-              placeholder="Enter group name"
-              className="rounded-md"
-            />
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {selectedUsers.map((user) => (
-              <div
-                key={user.id}
-                className="flex items-center space-x-1 bg-neutral-300 px-2 py-1 rounded-full text-sm"
-              >
-                <Image
-                  src={user.image}
-                  alt={user.name}
-                  width={20}
-                  height={20}
-                  className="rounded-full"
-                />
-                <span>{user.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="pt-4">
-          <Button
-            onClick={handleCreateGroup}
-            className="w-full bg-primary-violet text-white hover:bg-primary-violet/90"
+          <button
+            type="button"
+            onClick={triggerFileInput}
+            className="absolute -bottom-2 right-2 bg-gray-700 border-white border-2 rounded-full p-1 shadow"
           >
-            Create Group
-          </Button>
+            <IoCameraOutline className="w-4 h-4 text-white-main " />
+          </button>
+
+          <input
+            type="file"
+            accept="image/*"
+            ref={inputRef}
+            onChange={handleImageChange}
+            className="hidden"
+          />
         </div>
       </div>
-    );
-  }
+
+      {/* Group Name Field */}
+      <div className="my-6 space-y-2">
+        <label htmlFor="groupname">Group Name</label>
+        <Input
+          id="groupname"
+          {...register("groupName")}
+          placeholder="Enter group name"
+          className="rounded-md"
+        />
+        {errors.groupName && (
+          <p className="text-red-500 text-sm">{errors.groupName.message}</p>
+        )}
+      </div>
+
+      {/* Selected Users */}
+      <div className="flex flex-wrap gap-2">
+        {selectedUsers.map((user) => (
+          <div
+            key={user.id}
+            className="flex items-center space-x-1 bg-neutral-300 px-2 py-1 rounded-full text-sm"
+          >
+            <Image
+              src={user.image}
+              alt={user.name}
+              width={20}
+              height={20}
+              className="rounded-full"
+            />
+            <span>{user.name}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Submit Button */}
+      <div className="pt-4">
+        <Button
+          type="submit"
+          disabled = {isSubmitting}
+          className="w-full bg-primary-violet text-white hover:bg-primary-violet/90"
+        >
+          {isSubmitting? 'Creating': 'Create Group'}
+        </Button>
+      </div>
+    </form>
+  );
+}
 
   return (
     <div>
@@ -230,7 +254,7 @@ export const CreateGroup = () => {
                 alt={user.name}
                 width={30}
                 height={30}
-                className="rounded-full"
+                className="rounded-full size-7"
               />
               <div>
                 <p className="text-neutral-base font-medium">{user.name}</p>
