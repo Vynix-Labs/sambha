@@ -3,6 +3,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { vendors } from "../../../../../../lib/vendors";
 import { CategorySection } from "../../../../../../components/event-planner/vendor/CategorySection/CategorySection";
+import { Vendor } from "types/vendor";
 
 interface CategoryPageProps {
   params: {
@@ -13,11 +14,10 @@ interface CategoryPageProps {
 
 export default function CategoryPage({
   params,
-  searchParams,
 }: CategoryPageProps): React.JSX.Element {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
-  const [vendorsData, setVendorsData] = useState<any[]>([]);
+  const [vendorsData, setVendorsData] = useState<Vendor[]>([]);
 
   const category = params?.category || "";
 

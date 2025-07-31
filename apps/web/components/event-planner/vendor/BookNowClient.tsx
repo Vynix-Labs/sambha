@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
-import { AlertTriangle, ChevronLeft, CreditCard } from "lucide-react";
+import { AlertTriangle, CreditCard } from "lucide-react";
 import { Vendor } from "../../../types/vendor";
 import { VendorProfile } from "./VendorProfile";
 import { events } from "../../../lib/events";
 import { ReactElement } from "react";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { Button } from "@sambha/ui/button";
 
 interface BookNowClientProps {
   vendor: Vendor;
@@ -317,15 +317,12 @@ export default function BookNowClient({
               </div> */}
             </div>
 
-            <button
+            <Button
               onClick={handlePayment}
-              className="w-full py-[7px] px-4 rounded-full text-center font-medium transition-all duration-300 relative overflow-hidden border border-[#6946e2] bg-white group"
+              className="w-full"
             >
-              <span className="relative z-10 bg-clip-text text-sm font-semibold text-transparent bg-gradient-to-b from-[#6946e2] to-[#b868fa] group-hover:from-white group-hover:to-white/90">
                 Pay ${vendor.pricePerDay * bookingDetails.days}
-              </span>
-              <span className="absolute inset-0 bg-gradient-to-b from-[#b868fa] to-[#6946e2] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></span>
-            </button>
+            </Button>
           </div>
         </div>
         {/* Right Column - Vendor Summary (1/3 width) */}

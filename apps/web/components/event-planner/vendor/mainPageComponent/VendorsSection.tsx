@@ -4,6 +4,7 @@ import Link from "next/link";
 import { VendorsSkeleton } from "./VendorsSkeleton";
 import { LocationFilter } from "../LocationFilter";
 import { VendorsGrid } from "../VendorsGrid";
+import { Vendor } from "types/vendor";
 
 const categories = [
   { name: "Catering", icon: "🍽️" },
@@ -16,7 +17,7 @@ const categories = [
 ];
 
 type VendorsSectionProps = {
-  vendors: any[];
+  vendors: Vendor[];
   selectedLocation: string;
   onLocationChange: (location: string) => void;
   isLoading?: boolean;

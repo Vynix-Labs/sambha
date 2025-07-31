@@ -1,14 +1,14 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { vendors } from "../../../../lib/vendors";
 import { VendorsSection } from "../../../../components/event-planner/vendor/mainPageComponent/VendorsSection";
+import { Vendor } from "../../../../types/vendor"; // Import your Vendor type
 
 export default function VendorsPage(): React.JSX.Element {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
-  const [vendorsData, setVendorsData] = useState<any[]>([]);
+  const [vendorsData, setVendorsData] = useState<Vendor[]>([]); // Properly typed
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +16,7 @@ export default function VendorsPage(): React.JSX.Element {
         setTimeout(() => {
           setVendorsData(vendors);
           setIsLoading(false);
-        }, 500); 
+        }, 500);
       } catch (error) {
         console.error("Error fetching vendors:", error);
         setIsLoading(false);
@@ -35,5 +35,3 @@ export default function VendorsPage(): React.JSX.Element {
     />
   );
 }
-
-
