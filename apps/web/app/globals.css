@@ -11,7 +11,7 @@
 }
 
 .dragging-active {
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   opacity: 0.9;
   transition: none !important;
 }
@@ -23,6 +23,14 @@
 
 .cursor-move:active {
   cursor: grabbing;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @font-face {
