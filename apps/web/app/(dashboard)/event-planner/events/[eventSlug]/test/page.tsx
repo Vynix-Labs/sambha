@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useRef, useCallback } from "react";
 import {
@@ -54,7 +54,7 @@ const SeatingChartDesigner = () => {
 
   // Helper functions
   const snapToGrid = (position) => {
-    const gridSize = 20;
+    const gridSize = 2;
     return {
       x: Math.round(position.x / gridSize) * gridSize,
       y: Math.round(position.y / gridSize) * gridSize,
@@ -142,7 +142,6 @@ const SeatingChartDesigner = () => {
 
     return positions.slice(0, seats);
   };
-
 
   // create sit for any table click
   const createChairsForTable = (table) => {
@@ -397,6 +396,7 @@ const SeatingChartDesigner = () => {
     );
   };
 
+  // chair function when asigned
   const renderChair = (chair) => {
     const isAssigned = !!chair.guestName;
     const isDragging =
@@ -439,6 +439,7 @@ const SeatingChartDesigner = () => {
     );
   };
 
+  // for text
   const renderTextItem = (textItem) => (
     <div
       key={textItem.id}

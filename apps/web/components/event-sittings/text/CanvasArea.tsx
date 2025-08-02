@@ -37,8 +37,8 @@ const CanvasArea: React.FC<CanvasAreaProps> = ({
   handleMouseMove,
   handleMouseUp,
 }) => {
+  console.log("chairs", chairs, textItems);
 
-  
   return (
     <div className="flex-1 relative overflow-hidden bg-gray-50">
       <div
