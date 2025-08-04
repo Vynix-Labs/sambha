@@ -3,6 +3,7 @@ export type TableType = "round" | "rectangle" | "long" | "square";
 // In your types file or at the top of your component
 // types.ts
 export type TabValue = "Items" | "Text" | "Guests";
+
 export interface Position {
   x: number;
   y: number;

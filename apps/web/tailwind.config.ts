@@ -109,6 +109,7 @@ const config: Config = {
       screens: {
         mdlg: { raw: "(max-width: 1026px)" },
       },
+      
       sidebar: "#2A1D52",
 
       backgroundImage: {

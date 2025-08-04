@@ -1,6 +1,37 @@
 "use client";
 import React, { useRef } from "react";
-import { TableShape, Chair, TextItem } from "types";
+
+// Local definitions instead of "types" import
+export type TableShape = {
+  id: number;
+  className: string;
+  name: string;
+  x: number;
+  y: number;
+  seats: number;
+  seatAssignments?: Record<number, string>; // Added to support seatAssignments
+};
+
+export type Chair = {
+  id: number;
+  tableId: number;
+  guest: Guest | null;
+  seatNumber?: number;
+  position?: { x: number; y: number };
+  guestName?: string | null;
+};
+
+export type Guest = {
+  id: string;
+  name: string;
+};
+
+export type TextItem = {
+  id: number;
+  text: string;
+  x: number;
+  y: number;
+};
 
 interface TableVisualizationProps {
   tables: TableShape[];
@@ -8,7 +39,7 @@ interface TableVisualizationProps {
   textItems: TextItem[];
   selectedTable?: TableShape | null;
   setSelectedTable: (table: TableShape | null) => void;
-  handleMouseMove: (event: React.MouseEvent) => void;
+  handleMouseMove: (event: React.MouseEvent<HTMLDivElement>) => void;
   handleMouseUp: () => void;
   dragState: {
     isDragging: boolean;
@@ -41,29 +72,27 @@ export default function TableVisualization({
           backgroundImage:
             "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
           backgroundSize: "20px 20px",
-          cursor: dragState.isDragging ? "grabbing" : "default",
+          cursor: dragState?.isDragging ? "grabbing" : "default",
         }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onClick={() => setSelectedTable(null)}
       >
         {tables.length === 0 &&
-        textItems.length === 0 &&
-        chairs.length === 0 ? (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-400">
-            <div className="text-6xl mb-4">🪑</div>
-            <h3 className="text-lg font-medium mb-2">
-              Start designing your seating chart
-            </h3>
-            <p>Add tables and items from the left panel</p>
-          </div>
-        ) : (
-          <>
-            {tables.map((table) => renderTable(table))}
-            {chairs.map((chair) => renderChair(chair))}
-            {textItems.map((textItem) => renderTextItem(textItem))}
-          </>
-        )}
+          textItems.length === 0 &&
+          chairs.length === 0 && (
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-400">
+              <div className="text-6xl mb-4">🪑</div>
+              <h3 className="text-lg font-medium mb-2">
+                Start designing your seating chart
+              </h3>
+              <p>Add tables and items from the left panel</p>
+            </div>
+          )}
+
+        {tables.map(renderTable)}
+        {chairs.map(renderChair)}
+        {textItems.map(renderTextItem)}
       </div>
     </div>
   );
