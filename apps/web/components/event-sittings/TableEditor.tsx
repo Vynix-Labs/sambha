@@ -35,7 +35,7 @@ export const TableEditor = ({
   removeGuest,
 }: TableEditorProps) => {
   return (
-    <div className="space-y-4">
+    <div className="h-full w-full">
       <div className="border-b">
         <button
           onClick={() => setSelectedTable(null)}

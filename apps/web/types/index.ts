@@ -1,6 +1,5 @@
 export type TableType = "round" | "rectangle" | "long" | "square";
 
-// In your types file or at the top of your component
 // types.ts
 export type TabValue = "Items" | "Text" | "Guests";
 
@@ -9,46 +8,22 @@ export interface Position {
   y: number;
 }
 
-// export interface TableShape {
-//   id: string;
-//   type: TableType;
-//   position: Position;
-//   name: string;
-//   seats: number;
-//   seatAssignments: Record<string, string>; // ✅ key is string
-// }
-
-// export interface Chair {
-//   id: string;
-//   tableId: string;
-//   seatNumber: number;
-//   position: Position;
-//   guestName: string | null;
-// }
-
-// export interface TextItem {
-//   id: string;
-//   position: Position;
-//   text: string;
-//   fontFamily: string;
-// }
-
 // types.ts
 export interface TableShape {
-  id: number;
-  className: string;
+  id: string;
+  type: "round" | "rectangle" | "long";
   name: string;
-  x: number;
-  y: number;
+  position: { x: number; y: number };
   seats: number;
+  seatAssignments: Record<number, string>;
 }
 
 export interface Chair {
-  id: number;
-  tableId: number;
-  guest: Guest | null;
-  x?: number; // Optional if not used
-  y?: number; // Optional if not used
+  id: string;
+  tableId: string;
+  seatNumber: number;
+  position: { x: number; y: number };
+  guestName: string | null;
 }
 
 export interface Guest {
@@ -57,10 +32,10 @@ export interface Guest {
 }
 
 export interface TextItem {
-  id: number;
+  id: string;
   text: string;
-  x: number;
-  y: number;
+  position: { x: number; y: number };
+  fontFamily: string;
 }
 
 export interface DragState {

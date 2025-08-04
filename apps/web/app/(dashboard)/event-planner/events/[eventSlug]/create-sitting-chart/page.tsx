@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { Breadcrumb } from "components/event-sittings/Breadcrumb";
 import { TabNavigation } from "components/event-sittings/TabNavigation";
@@ -8,37 +8,7 @@ import AddText from "components/event-sittings/AddText";
 import GuestSelector from "components/event-sittings/GuestSelector";
 import TableItems from "components/event-sittings/TableItems";
 import TableVisualization from "components/event-sittings/TableVisualization";
-import { TabValue } from "types";
-
-// Define types at the top for better organization
-type Guest = {
-  id: string;
-  name: string;
-};
-
-type TableShape = {
-  id: string;
-  type: "round" | "rectangle" | "long";
-  name: string;
-  position: { x: number; y: number };
-  seats: number;
-  seatAssignments: Record<number, string>;
-};
-
-type Chair = {
-  id: string;
-  tableId: string;
-  seatNumber: number;
-  position: { x: number; y: number };
-  guestName: string | null;
-};
-
-type TextItem = {
-  id: string;
-  text: string;
-  position: { x: number; y: number };
-  fontFamily: string;
-};
+import { Chair, Guest, TableShape, TabValue, TextItem } from "types";
 
 const events = [
   {
@@ -67,6 +37,7 @@ const getTableDimensions = (type: string) => {
   }
 };
 
+// chair postion
 const generateChairPositions = (table: TableShape) => {
   const positions = [];
   const radius = 60;
@@ -94,17 +65,16 @@ export default function CreateSittingChartPage() {
   const { eventSlug } = useParams();
   const decodedSlug = decodeURIComponent(eventSlug as string);
   const currentEvent = events.find((event) => event.slug === decodedSlug);
+  const [textItems] = useState<TextItem[]>([]);
 
-  const canvasRef = useRef<HTMLDivElement>(null);
   const [tables, setTables] = useState<TableShape[]>([]);
   const [chairs, setChairs] = useState<Chair[]>([]);
-  const [textItems, setTextItems] = useState<TextItem[]>([]);
   const [tableCounter, setTableCounter] = useState(1);
-  const [selectedFont, setSelectedFont] = useState("Arial");
   const [selectedTable, setSelectedTable] = useState<TableShape | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  // to create chair to a table selected
   const createChairsForTable = (table: TableShape) => {
     const positions = generateChairPositions(table);
     return positions.map((position, index) => ({
@@ -116,6 +86,7 @@ export default function CreateSittingChartPage() {
     }));
   };
 
+  // to avoid different shape render on eachother
   const checkCollision = (
     newTable: TableShape,
     existingTables: TableShape[]
@@ -173,21 +144,17 @@ export default function CreateSittingChartPage() {
         t.id === selectedTable.id ? updatedTable : t
       );
     });
-
-    setSelectedTable(updatedTable);
-
-    return prevTables.map((t) =>
-      t.id === selectedTable.id ? updatedTable : t
-    );
   };
 
+  // to update sit
   const updateSeatCount = (newSeatCount: number) => {
     if (!selectedTable) return;
 
     const newAssignments: Record<number, string> = {};
     for (let i = 1; i <= newSeatCount; i++) {
-      if (selectedTable.seatAssignments?.[i]) {
-        newAssignments[i] = selectedTable.seatAssignments[i];
+      const guest = selectedTable.seatAssignments?.[i];
+      if (guest) {
+        newAssignments[i] = guest;
       }
     }
 
@@ -197,6 +164,7 @@ export default function CreateSittingChartPage() {
     });
   };
 
+  // add guest
   const assignGuestToSeat = (seatNumber: number, guestName: string) => {
     if (!selectedTable) return;
 
@@ -208,6 +176,7 @@ export default function CreateSittingChartPage() {
     });
   };
 
+  // remove guest
   const removeGuestFromSeat = (seatNumber: number) => {
     if (!selectedTable) return;
 
@@ -219,7 +188,7 @@ export default function CreateSittingChartPage() {
     });
   };
 
-  // Event handlers
+  // Event handlers for drag and drop
   const handleDragStart = useCallback(
     (e: React.MouseEvent, table: TableShape) => {
       setIsDragging(true);
@@ -256,9 +225,16 @@ export default function CreateSittingChartPage() {
       // Update all chairs for this table
       setChairs((prevChairs) => {
         const newChairPositions = generateChairPositions(updatedTable);
+
         return prevChairs.map((chair) => {
-          if (chair.tableId === selectedTable.id) {
+          if (
+            chair.tableId === selectedTable.id &&
+            chair.seatNumber !== undefined
+          ) {
             const newPosition = newChairPositions[chair.seatNumber - 1];
+
+            if (!newPosition) return chair; // safeguard
+
             return {
               ...chair,
               position: snapToGrid(newPosition),
@@ -277,46 +253,51 @@ export default function CreateSittingChartPage() {
     setIsDragging(false);
   }, []);
 
-  const addTable = (type: "round" | "rectangle" | "long") => {
-    let position = snapToGrid({ x: 400, y: 300 });
+  const addTable = useCallback(
+    (type: "round" | "rectangle" | "long") => {
+      let position = snapToGrid({ x: 400, y: 300 });
 
-    const newTable = {
-      id: `table-${Date.now()}`,
-      type,
-      position,
-      name: `Table ${tableCounter}`,
-      seats: 3,
-      seatAssignments: { 1: "Kathryn Murphy" },
-    };
+      const newTable = {
+        id: `table-${Date.now()}`,
+        type,
+        position,
+        name: `Table ${tableCounter}`,
+        seats: 3,
+        seatAssignments: { 1: "Kathryn Murphy" },
+      };
 
-    // Find available position
-    let attempts = 0;
-    while (checkCollision(newTable, tables) && attempts < 20) {
-      position = snapToGrid({
-        x: 300 + attempts * 60,
-        y: 250 + Math.floor(attempts / 3) * 100,
-      });
-      newTable.position = position;
-      attempts++;
+      let attempts = 0;
+      while (checkCollision(newTable, tables) && attempts < 20) {
+        position = snapToGrid({
+          x: 300 + attempts * 60,
+          y: 250 + Math.floor(attempts / 3) * 100,
+        });
+        newTable.position = position;
+        attempts++;
+      }
+
+      const newChairs = createChairsForTable(newTable);
+
+      setTables((prev) => [...prev, newTable]);
+      setChairs((prev) => [...prev, ...newChairs]);
+      setTableCounter((prev) => prev + 1);
+      setSelectedTable(newTable);
+    },
+    [tableCounter, tables]
+  ); // depends on tableCounter and tables
+
+  const renderContent = useCallback(() => {
+    switch (activeTab) {
+      case "Items":
+        return <TableItems onSelectTable={addTable} />;
+      case "Text":
+        return <AddText />;
+      case "Guests":
+        return <GuestSelector />;
+      default:
+        return null;
     }
-
-    const newChairs = createChairsForTable(newTable);
-
-    setTables((prev) => [...prev, newTable]);
-    setChairs((prev) => [...prev, ...newChairs]);
-    setTableCounter((prev) => prev + 1);
-    setSelectedTable(newTable);
-  };
-
-  // const addTextBox = () => {
-  //   const newText = {
-  //     id: `text-${Date.now()}`,
-  //     position: snapToGrid({ x: 300, y: 200 }),
-  //     text: "Double click to edit",
-  //     fontFamily: selectedFont,
-  //   };
-  //   setTextItems((prev) => [...prev, newText]);
-  // };
+  }, [activeTab, addTable]);
 
   // Sample guests data
   const AVAILABLE_GUESTS: Guest[] = [
@@ -330,19 +311,7 @@ export default function CreateSittingChartPage() {
     { id: "2", name: "Robert Taylor" },
   ];
 
-  const renderContent = useCallback(() => {
-    switch (activeTab) {
-      case "Items":
-        return <TableItems onSelectTable={(type) => addTable(type)} />;
-      case "Text":
-        return <AddText />;
-      case "Guests":
-        return <GuestSelector />;
-      default:
-        return null;
-    }
-  }, [activeTab]);
-
+  // this is when any table is being display with  chair and there names
   const renderTable = useCallback(
     (table: TableShape) => (
       <div
@@ -358,10 +327,10 @@ export default function CreateSittingChartPage() {
         }}
       >
         <div
-          className={`flex items-center justify-center text-white font-medium text-sm 
+          className={`flex items-center justify-center text-primary-light font-medium text-sm 
             ${table.type === "round" ? "rounded-full" : "rounded"} 
             ${table.type === "long" ? "w-32 h-16" : "w-20 h-20"} 
-            bg-purple-600`}
+            bg-purple-base`}
         >
           {table.name}
         </div>
@@ -370,6 +339,7 @@ export default function CreateSittingChartPage() {
     [handleDragStart, isDragging, selectedTable]
   );
 
+  // for chair
   const renderChair = useCallback((chair: Chair) => {
     return (
       <div
@@ -381,7 +351,7 @@ export default function CreateSittingChartPage() {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+        <div className="w-6 h-6 cursor-move transition-all duration-200 rounded-full bg-purple-base flex items-center justify-center text-primary-light text-xs">
           {chair.guestName ? chair.guestName[0] : chair.seatNumber}
         </div>
       </div>
