@@ -4,13 +4,12 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { Button } from "@sambha/ui/button";
 import Image from "next/image";
-import Details from "components/event-sittings/Details";
 import EventTabs from "components/event-sittings/EventTab";
 import { Theme } from "types";
 import { defaultTheme } from "themeConfig";
 import { ThemeSelector } from "components/event-sittings/themes/ThemeSelector";
+import Details from "./Details";
 
 const event = {
   id: "abc123",
@@ -34,9 +33,9 @@ export default function EventSlugPage() {
           />
         );
       case "Guests":
-        return <div>Guests content here</div>;
+        return <div>Guest content Coming Soon here</div>;
       case "Tasks":
-        return <div>Tasks content here</div>;
+        return <div>Tasks content Coming Soon here</div>;
       case "Budget":
         return <div>Budget content here</div>;
       default:

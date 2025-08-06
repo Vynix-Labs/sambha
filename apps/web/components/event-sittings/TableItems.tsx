@@ -1,5 +1,5 @@
 import React from "react";
-import { ViewButton } from "./Details";
+import { ViewButton } from "../../app/(dashboard)/event-planner/events/[eventSlug]/Details";
 import { SearchFilter } from "./GuestSelector";
 
 type TableItemsProps = {

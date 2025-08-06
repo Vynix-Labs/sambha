@@ -18,8 +18,8 @@ export const defaultTheme: Theme = {
   image: frame1,
   isDefault: true,
   styles: {
-    overlay: "bg-primary-light/80 backdrop-blur-md",
-    contentBg: "bg-primary-light/95 backdrop-blur-md",
+    overlay: "bg-primary-light backdrop-blur-md",
+    contentBg: "bg-primary-light backdrop-blur-md",
     // primaryText: "text-[#2A1D52]",
     // secondaryText: "text-[#98A2B3]",
     // cardBg: "bg-white/90 backdrop-blur-sm",
@@ -73,8 +73,8 @@ export const themeConfigs: Theme[] = [
     name: "Emerald Elegance",
     image: frame4,
     styles: {
-      overlay: "bg-primary-dark/85 backdrop-blur-sm",
-      contentBg: "bg-primary-light/95 backdrop-blur-md text-primary-light",
+      overlay: "bg-primary-dark/85 backdrop-blur-md",
+      contentBg: "bg-primary-light/95 backdrop-blur-md",
       //   primaryText: "text-emerald-900",
       //   secondaryText: "text-emerald-600",
       //   cardBg: "bg-white/90 backdrop-blur-sm",
