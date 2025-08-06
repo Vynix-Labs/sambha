@@ -1,3 +1,40 @@
+// types/theme.ts
+import { StaticImageData } from "next/image";
+
+type ThemeStyles = {
+  buttonBg: string;
+  buttonText: string;
+  overlay: string;
+  contentBg: string;
+  primaryText: string;
+  secondaryText: string;
+  cardBg: string;
+  borderColor: string;
+  gradientFrom: string;
+  gradientTo: string;
+  shadowStyle: string;
+  [key: string]: string; // Remove undefined from this type
+};
+
+export interface Theme {
+  name: string;
+  image: StaticImageData; // Changed from string to StaticImageData
+  isDefault?: boolean;
+  styles: ThemeStyles;
+}
+
+export interface ThemeSelectorProps {
+  selectedTheme: Theme;
+  setSelectedTheme: (theme: Theme) => void;
+  onClose: () => void;
+}
+
+export interface ThemeCardProps {
+  theme: Theme;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
 export type TableType = "round" | "rectangle" | "long" | "square";
 
 // types.ts

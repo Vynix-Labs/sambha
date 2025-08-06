@@ -14,7 +14,7 @@ import MessageIcon from "components/icons/MessageIcon";
 import ThemeIcon from "components/icons/ThemeIcon";
 import GuestIcon from "components/icons/GuestIcon";
 import PencilIconEdit from "components/icons/PencilIconEdit";
-import { ThemeConfig } from "types/theme";
+import { Theme } from "types";
 
 const icons = [
   { label: "Edit", icon: <PencilIconEdit /> },
@@ -48,7 +48,7 @@ export function ViewButton() {
 
 // details component
 interface DetailsProps {
-  theme: ThemeConfig;
+  theme: Theme; // Use the Theme type instead of ThemeConfig
   onThemeClick: () => void;
 }
 
@@ -154,14 +154,17 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                 onClick={label === "Theme" ? onThemeClick : undefined} // Opens theme selector when Theme icon is clicked
               >
                 <div
-                  className={`${theme.styles.cardBg
-                    } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+                  className={`${
+                    theme.styles.cardBg
+                  } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
                 >
                   {React.cloneElement(icon, {
                     className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
                   })}
                 </div>
-                <h1 className={`text-sm ${theme.styles.primaryText} font-medium`}>
+                <h1
+                  className={`text-sm ${theme.styles.primaryText} font-medium`}
+                >
                   {label}
                 </h1>
               </div>
