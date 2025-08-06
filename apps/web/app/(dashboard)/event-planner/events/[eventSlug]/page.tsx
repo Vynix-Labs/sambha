@@ -87,7 +87,7 @@ export default function EventSlugPage() {
         />
         <div className="py-4">{renderContent()}</div>
 
-        <Link href={`/event-planner/events/${event.slug}/create-sitting-chart`}>
+        {/* <Link href={`/event-planner/events/${event.slug}/create-sitting-chart`}>
           <Button
             className={
               selectedTheme.styles.buttonBg +
@@ -97,7 +97,7 @@ export default function EventSlugPage() {
           >
             Create Sitting Chart
           </Button>
-        </Link>
+        </Link> */}
       </div>
 
       {/* Theme selector modal */}

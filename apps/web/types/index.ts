@@ -2,17 +2,17 @@
 import { StaticImageData } from "next/image";
 
 type ThemeStyles = {
-  buttonBg: string;
-  buttonText: string;
+  // buttonBg: string;
+  // buttonText: string;
   overlay: string;
   contentBg: string;
-  primaryText: string;
-  secondaryText: string;
-  cardBg: string;
-  borderColor: string;
-  gradientFrom: string;
-  gradientTo: string;
-  shadowStyle: string;
+  // primaryText: string;
+  // secondaryText: string;
+  // cardBg: string;
+  // borderColor: string;
+  // gradientFrom: string;
+  // gradientTo: string;
+  // shadowStyle: string;
   [key: string]: string; // Remove undefined from this type
 };
 

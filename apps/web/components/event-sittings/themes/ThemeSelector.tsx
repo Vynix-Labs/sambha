@@ -23,7 +23,7 @@ export const ThemeSelector = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex justify-end items-center pr-2">
+    <div className="fixed inset-0 bg-primary-dark/30 backdrop-blur-sm z-50 flex justify-end items-center pr-2">
       <div className="bg-primary-light h-screen rounded-xl shadow-xl w-full max-w-md relative overflow-hidden">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -49,18 +49,20 @@ export const ThemeSelector = ({
 
           <div className="flex absolute bottom-6 items-center w-full justify-center whitespace-nowrap">
             <button
-              className=" justify-center z-10 rounded-md bg-white/80 px-4 py-2 text-sm  text-gradient-primary gap-4 flex font-medium shadow hover:bg-white"
+              className="justify-center z-10 rounded-md px-4 py-2 text-sm font-medium  hover:bg-primary-light flex items-center gap-2"
               onClick={() => alert("Edit background clicked")}
             >
               <Image
                 src={adaImage}
                 alt="Add Image"
-                width={500}
-                height={500}
+                width={20} // Adjusted for better proportion
+                height={20}
                 quality={100}
-                className="h-full w-full rounded-lg"
+                className="rounded-lg"
               />
-              Edit Background
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
+                Edit Background
+              </span>
             </button>
           </div>
 
