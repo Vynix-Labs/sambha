@@ -156,7 +156,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                 <div
                   className={`${
                     theme.styles.cardBg
-                  } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+                  } rounded-full p-4 hover:scale-105 cursor-pointer ${theme.styles.shadowStyle}`}
                 >
                   {React.cloneElement(icon, {
                     className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
