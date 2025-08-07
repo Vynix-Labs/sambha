@@ -47,9 +47,9 @@ export const AccountSettings = () => {
               <button
                 type="button"
                 onClick={triggerFileInput}
-                className="absolute bottom-1 right-2 bg-gray-dark border-white border-2 rounded-full p-1 shadow"
+                className="absolute bottom-1 right-2 bg-gray-700 border-white border-2 rounded-full p-1 shadow"
               >
-                <IoCameraOutline className="w-4 h-4 text-white " />
+                <IoCameraOutline className="w-4 h-4 text-white-base" />
               </button>
               <input
                 type="file"
