@@ -10,6 +10,8 @@ import { Theme } from "types";
 import { defaultTheme } from "themeConfig";
 import { ThemeSelector } from "components/event-sittings/themes/ThemeSelector";
 import Details from "./Details";
+import Guest from "./guest";
+import BudgetBreakDown from "./budget";
 
 const event = {
   id: "abc123",
@@ -33,11 +35,17 @@ export default function EventSlugPage() {
           />
         );
       case "Guests":
-        return <div>Guest content Coming Soon here</div>;
+        return (
+          <div className="flex items-center gap-2">
+            <div className="flex grow">
+              <Guest filterEVent={filerEVent} />
+            </div>
+          </div>
+        );
       case "Tasks":
         return <div>Tasks content Coming Soon here</div>;
       case "Budget":
-        return <div>Budget content here</div>;
+        return <div>{event && <BudgetBreakDown event={event} />}</div>;
       default:
         return null;
     }
