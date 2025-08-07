@@ -31,7 +31,7 @@ export function Modal({ children, title }: ChatModalProps) {
       <DialogContent
         showCloseButton={false}
         onInteractOutside={(e) => e.preventDefault()}
-        className={`max-h-[calc(100vh-2rem)] outline-none overflow-y-auto thin-scrollbar max-md:w-sm rounded-[20px] lg:max-w-${size} md:max-w-md bg-white text-black`}
+        className={`max-h-[calc(100vh-2rem)] outline-none overflow-y-auto thin-scrollbar max-md:w-sm rounded-[20px] lg:max-w-${size} md:max-w-md bg-white-main text-black`}
       >
         <DialogClose asChild>
           <button

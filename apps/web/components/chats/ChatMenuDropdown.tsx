@@ -17,7 +17,7 @@ export const ChatMenuDropdown = () => {
       <DropdownMenuTrigger className="outline-none">
         <HiPlus />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white space-y-2">
+      <DropdownMenuContent className="bg-white-main space-y-2">
         <DropdownMenuItem
           className="hover:bg-neutral-100 outline-none"
           onClick={() => setModal({ isOpen: true, type: "new group" })}

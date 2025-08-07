@@ -6,7 +6,8 @@ import Image from "next/image";
 import { PlaceHolder } from "@sambha/ui/icons";
 import { Button } from "@sambha/ui/button";
 import { useRouter } from "next/navigation";
-import { ProfileTable } from "./table/ProfileTable";
+import { HostedTable } from "./hostedTable/HostedTable";
+import { hostedEvents } from "./data";
 
 export const Profile = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ export const Profile = () => {
           Profile Settings
         </Button>
       </div>
-      <ProfileTable loading={false} data={userData.hosts} />
+      <HostedTable loading={false} data={hostedEvents}/>
     </div>
   );
 };
