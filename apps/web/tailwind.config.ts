@@ -57,6 +57,8 @@ const config: Config = {
           400: "#52575C",
           500: "#616161",
           600: "#98A2B3",
+          700: "#667185",
+          750: "#E4E7EC",
           650: "#78788029",
           900: "#101828",
           950: "#070D17",
@@ -71,6 +73,7 @@ const config: Config = {
         // },
 
         white: {
+          main: "#FFFFFF",
           base: "#F3F4F6", // Light gray for disabled background
           900: "#F9F9F9",
           800: "#EBECEE",

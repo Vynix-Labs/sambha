@@ -53,7 +53,7 @@ export function CustomTable<TData>({
   onPageSizeChange,
   showSerialNumber = true,
   emptyMessage = "No data available",
-}: ReusableTableProps<TData>) {
+}: ReusableTableProps<TData>): React.ReactElement {
   const pageNumbers = getPageNumbers(totalPages, pageIndex);
 
   const table = useReactTable({
@@ -165,7 +165,7 @@ export function CustomTable<TData>({
                 key={page}
                 onClick={() => onPageChange?.(page)}
                 className={`px-3 py-1 text-sm border rounded ${
-                  pageIndex === page ? "bg-primary-dark text-white" : ""
+                  pageIndex === page ? "bg-primary-dark text-white-base" : ""
                 }`}
               >
                 {page}

@@ -1,10 +1,10 @@
 import React from "react";
 
+import { HostedType } from "../../../types/profile/data";
 import { CustomTable } from "@sambha/ui/CustomTable";
-import { columns } from "./column";
-import { FullEventsProps } from "types/events/dummyEvents";
+import { hostedColumns } from "./hostedColumn";
 
-export const ProfileTable = ({
+export const HostedTable = ({
   data,
   loading,
   totalPages,
@@ -12,7 +12,7 @@ export const ProfileTable = ({
   pageIndex,
   onPageChange,
 }: {
-  data: FullEventsProps[];
+  data: HostedType[];
   loading: boolean;
   totalPages?: number;
   pageSize?: number;
@@ -26,7 +26,7 @@ export const ProfileTable = ({
       </h1>
       <CustomTable
         showSerialNumber={false}
-        columns={columns}
+        columns={hostedColumns}
         data={data}
         isLoading={loading}
         pageIndex={pageIndex ?? 1}

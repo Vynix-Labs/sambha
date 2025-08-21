@@ -38,14 +38,16 @@ export default function EventSlugPage() {
         return (
           <div className="flex items-center gap-2">
             <div className="flex grow">
-              <Guest filterEVent={filerEVent} />
+              <Guest filterEVent={undefined} />
             </div>
           </div>
         );
       case "Tasks":
         return <div>Tasks content Coming Soon here</div>;
-      case "Budget":
-        return <div>{event && <BudgetBreakDown event={event} />}</div>;
+      // case "Budget":
+      //   return (
+      //     <div>{event && <BudgetBreakDown event={event} />}</div>
+      //   );
       default:
         return null;
     }

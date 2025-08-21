@@ -77,7 +77,6 @@ const SambhaSidebar = ({ sidebarItems }: { sidebarItems: SidebarItem[] }) => {
     sidebarItems?.find((item) => item.url === pathname)
   );
 
-
   const isSettingsActive = pathname.includes("/profile/settings");
 
   // useEffect(() => {
@@ -87,7 +86,6 @@ const SambhaSidebar = ({ sidebarItems }: { sidebarItems: SidebarItem[] }) => {
   //     );
   //   }
   // }, [pathname]);
-
 
   useEffect(() => {
     if (pathname) {
@@ -153,7 +151,7 @@ const SambhaSidebar = ({ sidebarItems }: { sidebarItems: SidebarItem[] }) => {
             className="flex items-center justify-between mt-6 cursor-pointer"
             onClick={() => router.push("/profile")}
           >
-            <div className="flex space-x-4 items-center text-white">
+            <div className="flex space-x-4 items-center text-white-base">
               <Image
                 src={userData.image}
                 alt={userData.name}
@@ -162,11 +160,11 @@ const SambhaSidebar = ({ sidebarItems }: { sidebarItems: SidebarItem[] }) => {
                 className="size-9 rounded-full"
               />
               <div>
-                <p className="font-bold">{userData.name}</p>
-                <p className="text-sm">{userData.email}</p>
+                <p className="font-bold text-white-base">{userData.name}</p>
+                <p className="text-sm text-white-base">{userData.email}</p>
               </div>
             </div>
-            <ChevronRight className="text-white cursor-pointer" />
+            <ChevronRight className="text-white-base cursor-pointer" />
           </div>
         </div>
       </section>

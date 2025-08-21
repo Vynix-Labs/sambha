@@ -2,9 +2,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { formatFlexibleDate } from "../../../utils/formatMessageDate";
 import Link from "next/link";
-import { FullEventsProps } from "types/events/dummyEvents";
+import { HostedType } from "types/profile/data";
 
-export const columns: ColumnDef<FullEventsProps>[] = [
+export const hostedColumns: ColumnDef<HostedType>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -19,7 +19,7 @@ export const columns: ColumnDef<FullEventsProps>[] = [
     cell: ({ row }) => {
       return (
         <p className="whitespace-nowrap font-semibold">
-          {row.original.host.name}
+          {row.original.host}
         </p>
       );
     },
@@ -44,29 +44,12 @@ export const columns: ColumnDef<FullEventsProps>[] = [
   {
   accessorKey: "todo",
   header: "To-do",
-  cell: ({ row }) => {
-    const tasks = row.original.tasks ?? [];
-    const completedTask = tasks.filter((task) => task.status === "completed");
 
-    return (
-      <p className="whitespace-nowrap font-semibold">
-        {`${completedTask.length}/${tasks.length}`}
-      </p>
-    );
-  },
 },
 
  {
   accessorKey: "venue",
   header: "Venue",
-  cell: ({ row }) => {
-    const venueName = row.original.venue?.name ?? "--";
-    return (
-      <p className="whitespace-nowrap font-semibold">
-        {venueName}
-      </p>
-    );
-  },
 },
   {
     id: "actions",

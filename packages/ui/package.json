@@ -17,6 +17,10 @@
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
+<<<<<<< HEAD
+=======
+    "@types/uuid": "^10.0.0",
+>>>>>>> ca8d2bc34cdd33a31e67c1af506f8676b9fd3dfa
     "eslint": "^9.27.0",
     "typescript": "5.8.3"
   },

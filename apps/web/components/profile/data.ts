@@ -305,3 +305,51 @@ export const eventsList: EventDetails[] = [
     ],
   },
 ];
+
+export interface HostedType {
+  name: string;
+  host: string;
+  date: string | number;
+  todo: number;
+  venue: string;
+}
+
+export const hostedEvents: HostedType[] = [
+  {
+    name: "Team Strategy Meeting",
+    host: "Alice Johnson",
+    date: "2025-08-15T10:00:00Z",
+    todo: 4,
+    venue: "Conference Room A",
+  },
+  {
+    name: "Product Launch Event",
+    host: "David Smith",
+    date: "2025-09-01T14:30:00Z",
+    todo: 7,
+    venue: "Main Hall",
+  },
+  {
+    name: "Weekly Sync-up",
+    host: "Sophie Lee",
+    date: "2025-07-30T09:00:00Z",
+    todo: 2,
+    venue: "Zoom",
+  },
+  {
+    name: "Board Meeting",
+    host: "Michael Brown",
+    date: "2025-10-05T13:00:00Z",
+    todo: 5,
+    venue: "Executive Suite",
+  },
+  {
+    name: "Design Workshop",
+    host: "Nina Patel",
+    date: "2025-08-22T11:00:00Z",
+    todo: 6,
+    venue: "Creative Lab",
+  },
+];
+
+
