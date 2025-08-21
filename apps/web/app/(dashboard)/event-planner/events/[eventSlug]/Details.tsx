@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import bgImage from "../../assets/images/bgImage.png";
-import adaImage from "../../assets/svgs/addImage.svg";
-import FullMapImage from "../../assets/images/FullMap.png";
-import TeamMembers from "./TeamMembers";
+import bgImage from "../../../../../assets/images/bgImage.png";
+import adaImage from "../../../../../assets/svgs/addImage.svg";
+import FullMapImage from "../../../../../assets/images/FullMap.png";
+import TeamMembers from "../../../../../components/event-sittings/TeamMembers";
 import Link from "next/link";
 import LocationIcon from "components/icons/LocationIcon";
 import CalenderIcon from "components/icons/CalenderIcon";
@@ -14,7 +14,7 @@ import MessageIcon from "components/icons/MessageIcon";
 import ThemeIcon from "components/icons/ThemeIcon";
 import GuestIcon from "components/icons/GuestIcon";
 import PencilIconEdit from "components/icons/PencilIconEdit";
-import { ThemeConfig } from "types/theme";
+import { Theme } from "types";
 
 const icons = [
   { label: "Edit", icon: <PencilIconEdit /> },
@@ -48,7 +48,7 @@ export function ViewButton() {
 
 // details component
 interface DetailsProps {
-  theme: ThemeConfig;
+  theme: Theme; // Use the Theme type instead of ThemeConfig
   onThemeClick: () => void;
 }
 
@@ -57,7 +57,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
     <div className={`py-4 w-full ${theme.styles.contentBg}`}>
       <div className="flex flex-col md:flex-row md:gap-4 gap-8 w-full">
         <div className="md:max-w-[60%] w-full">
-          <div className="h-[317px] w-full">
+          <div className="md:h-[317px] xl:h-[400px] w-full">
             <Image
               src={bgImage}
               alt="Background Image"
@@ -154,14 +154,17 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                 onClick={label === "Theme" ? onThemeClick : undefined} // Opens theme selector when Theme icon is clicked
               >
                 <div
-                  className={`${theme.styles.cardBg
-                    } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+                  className={`${
+                    theme.styles.cardBg
+                  } rounded-full p-4 hover:scale-105 cursor-pointer ${theme.styles.shadowStyle}`}
                 >
                   {React.cloneElement(icon, {
                     className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
                   })}
                 </div>
-                <h1 className={`text-sm ${theme.styles.primaryText} font-medium`}>
+                <h1
+                  className={`text-sm ${theme.styles.primaryText} font-medium`}
+                >
                   {label}
                 </h1>
               </div>
