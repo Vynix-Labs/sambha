@@ -44,13 +44,13 @@ interface TaskDrawerProps {
   onDeleteTask?: (taskId: number) => void;
 }
 
-export const TaskDrawer: React.FC<TaskDrawerProps> = ({
+export const TaskDrawer = ({
   isOpen,
   onClose,
   task,
   onUpdateTask,
   onDeleteTask,
-}) => {
+}: TaskDrawerProps) => {
   const [milestones, setMilestones] = useState<Milestone[]>(
     task?.milestones || [
       { id: 1, title: "Secure venue", completed: false },
@@ -244,14 +244,11 @@ export const TaskDrawer: React.FC<TaskDrawerProps> = ({
   return (
     <>
       {/* Overlay */}
-      <dialog
-        className="absolute w-screen h-screen  inset-0 bg-[#2603d7] bg-opacity-50 z-40 transition-opacity"
-        onClick={onClose}
-      />
+      <div className="relative  inset-0  px-8" onClick={onClose} />
 
       {/* Drawer */}
       <div
-        className={`fixed ${isOpen ? "right-0" : "right-[100vw]"}  -top-8 h-screen shadow-[0px_4px_4px_0px] shadow-black-100/25 w-full max-w-md bg-primary-light  z-[9999] transform transition-transform duration-1000 ease-in-out overflow-y-auto`}
+        className={`absolute ${isOpen ? "right-0" : "right-[100vw]"}  -top-8 h-screen shadow-[0px_4px_4px_0px] shadow-black-100/25 w-full max-w-md bg-primary-light  z-[9999] transform transition-transform duration-1000 ease-in-out overflow-y-auto`}
       >
         {/* Header */}
         <div className="flex-col flex justify-between  h-full">
