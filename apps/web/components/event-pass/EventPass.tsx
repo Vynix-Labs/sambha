@@ -16,7 +16,7 @@ interface EventPassProps {
 const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
   return (
     <div
-      className="relative rounded-xl w-full h-full flex flex-col justify-between p-6 text-white"
+      className="relative rounded-xl flex w-full items-center md:p-6 p-2"
       style={{
         backgroundImage: `url(${bgImage.src})`,
         backgroundSize: "cover",
@@ -24,53 +24,49 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Content */}
-      <div className="flex gap-4 h-full z-10 w-full justify-between items-center px-4">
-        <div className="flex w-full  gap-3">
-          <div className="relative z-10 flex flex-col w-full justify-center space-y-2">
-            {/* Header */}
-            <h1 className="text-lg font-bold">Raccoon Musicals</h1>
+      {/* Content (Left) */}
+      <div className="relative z-10 flex flex-col w-full space-y-4 pl-4">
+        <h1 className="text-sm md:text-lg font-bold">Raccoon Musicals</h1>
 
-            {/* Date and Time */}
-            <div className="flex justify-between w-full max-w-xs">
-              <div>
-                <p className="text-xs text-white">Date</p>
-                <p className="text-sm">{date}</p>
-              </div>
-
-              <div>
-                <p className="text-xs text-white">Time</p>
-                <p className="text-sm">{time}</p>
-              </div>
-            </div>
-
-            {/* Name */}
-            <div className="flex items-center space-x-4">
-              <Image
-                src={avatar}
-                alt="Avatar"
-                width={28}
-                height={28}
-                className="rounded-full h-7 w-7"
-              />
-              <h2 className="text-sm">{name}</h2>
-            </div>
+        {/* Date and Time */}
+        <div className="flex justify-between">
+          <div>
+            <p className="text-xs text-white">Date</p>
+            <p className="text-sm">{date}</p>
           </div>
 
-          {/* Divider */}
-          <div className="border-l border-dashed mx-4"></div>
+          <div>
+            <p className="text-xs text-white">Time</p>
+            <p className="text-sm">{time}</p>
+          </div>
         </div>
 
-        {/* QR Code */}
-        <div className="flex justify-center items-center">
+        {/* Name */}
+        <div className="flex items-center space-x-4">
           <Image
-            src={QrCode}
-            alt="QrCode"
-            width={96}
-            height={96}
-            className="h-24 w-24 object-contain"
+            src={avatar}
+            alt="Avatar"
+            width={28}
+            height={28}
+            className="rounded-full h-7 w-7"
           />
+          <h2 className="text-sm">{name}</h2>
         </div>
+      </div>
+
+      {/* Divider (Middle) */}
+      <div className="border-l border-dashed border-primary-light h-full mx-6" />
+
+      {/* QR Code (Right) */}
+      <div className="flex justify-center items-center w-32">
+        <Image
+          src={QrCode}
+          alt="QrCode"
+          width={96}
+          height={96}
+          quality={100}
+          className="h-24 w-24 object-contain"
+        />
       </div>
     </div>
   );
