@@ -11,7 +11,7 @@ import { defaultTheme } from "themeConfig";
 import { ThemeSelector } from "components/event-sittings/themes/ThemeSelector";
 import Details from "./Details";
 import Guest from "./guest";
-import BudgetBreakDown from "./budget";
+// import BudgetBreakDown from "./budget";
 
 const event = {
   id: "abc123",
