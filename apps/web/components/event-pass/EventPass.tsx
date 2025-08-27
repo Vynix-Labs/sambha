@@ -26,7 +26,9 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
     >
       {/* Content (Left) */}
       <div className="relative z-10 flex flex-col w-full space-y-4 pl-4">
-        <h1 className="text-sm md:text-lg font-bold">Raccoon Musicals</h1>
+        <h1 className="text-sm md:text-lg font-bold bg-gradientText bg-clip-text text-transparent">
+          Raccoon Musicals
+        </h1>
 
         {/* Date and Time */}
         <div className="flex justify-between">
@@ -55,7 +57,7 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
       </div>
 
       {/* Divider (Middle) */}
-      <div className="border-l border-dashed border-primary-light h-full mx-6" />
+      <div className="border-l border-dashed border-2 border-primary-light h-full mx-6" />
 
       {/* QR Code (Right) */}
       <div className="flex justify-center items-center w-32">
