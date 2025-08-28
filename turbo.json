@@ -1,114 +1,60 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "ui": "tui",
-    "globalDependencies": [
-        "**/.env.*local",
-        "**/.env.local",
-        "**/.env"
-    ],
-    "tasks": {
-        "build": {
-            "dependsOn": [
-                "^build"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                ".env*"
-            ],
-            "outputs": [
-                ".next/**",
-                "!.next/cache/**",
-                "dist/**",
-                "build/**",
-                "target/**"
-            ]
-        },
-        "build:contracts": {
-            "dependsOn": [
-                "^build:contracts"
-            ],
-            "inputs": [
-                "src/**/*.cairo",
-                "Scarb.toml",
-                "Scarb.lock"
-            ],
-            "outputs": [
-                "target/**"
-            ]
-        },
-        "dev": {
-            "cache": false,
-            "persistent": true,
-            "dependsOn": [
-                "^build"
-            ]
-        },
-        "test": {
-            "dependsOn": [
-                "^build"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "src/**/*.cairo",
-                "tests/**"
-            ],
-            "outputs": [
-                "coverage/**"
-            ]
-        },
-        "test:contracts": {
-            "dependsOn": [
-                "build:contracts"
-            ],
-            "inputs": [
-                "src/**/*.cairo",
-                "tests/**/*.cairo",
-                "Scarb.toml"
-            ],
-            "outputs": [
-                "target/**"
-            ]
-        },
-        "lint": {
-            "dependsOn": [
-                "^lint"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "src/**/*.cairo"
-            ]
-        },
-        "type-check": {
-            "dependsOn": [
-                "^type-check"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "src/**/*.cairo"
-            ]
-        },
-        "format": {
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "src/**/*.cairo"
-            ]
-        },
-        "clean": {
-            "cache": false
-        },
-        "deploy": {
-            "dependsOn": [
-                "build",
-                "test"
-            ],
-            "cache": false
-        },
-        "deploy:contracts": {
-            "dependsOn": [
-                "build:contracts",
-                "test:contracts"
-            ],
-            "cache": false
-        }
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalDependencies": ["**/.env.*local", "**/.env.local", "**/.env"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "build/**",
+        "target/**"
+      ]
+    },
+    "build:contracts": {
+      "dependsOn": ["^build:contracts"],
+      "inputs": ["src/**/*.cairo", "Scarb.toml", "Scarb.lock"],
+      "outputs": ["target/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.cairo", "tests/**"],
+      "outputs": ["coverage/**"]
+    },
+    "test:contracts": {
+      "dependsOn": ["build:contracts"],
+      "inputs": ["src/**/*.cairo", "tests/**/*.cairo", "Scarb.toml"],
+      "outputs": ["target/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.cairo"]
+    },
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.cairo"]
+    },
+    "format": {
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.cairo"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["build", "test"],
+      "cache": false
+    },
+    "deploy:contracts": {
+      "dependsOn": ["build:contracts", "test:contracts"],
+      "cache": false
     }
+  }
 }

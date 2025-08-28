@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Fractul";
+  src: url("/fonts/Fractul-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fractul";
+  src: url("/fonts/Fractul-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fractul";
+  src: url("/fonts/Fractul-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Fractul", sans-serif;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cdcccc transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import React, { ReactElement } from "react";
+
 import {
   SidebarProvider,
   SidebarTrigger,
@@ -28,7 +30,7 @@ const guestSidebarItems = [
 const eventPlannerSidebarItems = [
   { icon: <EventIcon1 />, label: "Events", url: "/event-planner/events" },
   { icon: <VendorIcon />, label: "Vendors", url: "/event-planner/vendors" },
-  { icon: <Chats />, label: "Chats", url: "/event-planner/chats" },
+  { icon: <Chats />, label: "Messages", url: "/event-planner/chats" },
 ];
 const vendorSidebarItems = [
   { icon: <HomeIcon />, label: "Home", url: "/vendor/" },
@@ -41,8 +43,18 @@ const vendorSidebarItems = [
   },
 ];
 
+export type SidebarItem = {
+  icon: ReactElement; // More specific than ReactNode
+  label: string;
+  url: string;
+};
+
+export type SidebarProviderProps = {
+  children: React.ReactNode;
+};
+
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const role: string = "guest"; // or get from your auth logic
+  const role: string = "event-planner"; // or get from your auth logic
 
   let sidebarItems: { icon: ReactNode; label: string; url: string }[] = [];
   if (role === "event-planner") {
@@ -55,11 +67,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="h-screen flex-row px-2 py-4 md:p-10 lg:p-[3.125rem] flex w-full">
+      <div className="h-screen flex-row py-4 flex w-full">
         <SambhaSidebar sidebarItems={sidebarItems} />
         <main className="flex-1 relative w-full overflow-auto no-scrollbar">
           <div className="absolute -top-1 right-0 w-max flex items-center">
-            <SidebarTrigger />
+            <SidebarTrigger >{children}</SidebarTrigger>
           </div>
 
           <MainContent>{children}</MainContent>
@@ -73,7 +85,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
   const { state } = useSidebar();
   return (
     <main className={state === "expanded" ? "lg:ml-[20.625rem]" : "ml-0"}>
-      <div className="w-full flex justify-between mb-2 lg:mb-4">
+      <div className="w-full flex justify-between border-b px-4 md:px-8 pb-2">
         <Input
           placeholder="search...."
           className="max-w-64 lg:max-w-xl bg-[#EBECEE]"
@@ -82,7 +94,7 @@ const MainContent = ({ children }: { children: React.ReactNode }) => {
           <Bell />
         </div>
       </div>
-      {children}
+      <main className="px-4 md:px-8">{children}</main>
     </main>
   );
 };

@@ -27,6 +27,11 @@ out/
 build
 dist
 
+#lock files
+*.lock*
+
+.pnpm-lock.yaml
+
 
 # Debug
 npm-debug.log*
@@ -36,3 +41,4 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+pnpm-lock.yaml

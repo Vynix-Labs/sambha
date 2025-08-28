@@ -1,15 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
 import "./globals.css";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-// });
+import { DisplayModal } from "../components/DisplayModal";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +15,33 @@ export default function RootLayout({
 }>): React.ReactElement {
   return (
     <html lang="en">
-      <body className={``}>{children}</body>
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/Fractul-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Fractul-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Fractul-Light.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body>
+        <DisplayModal />
+        {children}
+      </body>
     </html>
   );
 }

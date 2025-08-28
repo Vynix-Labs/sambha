@@ -16,6 +16,10 @@
 # production
 /build
 
+#romove lock files
+*.lock*
+.pnpm-lock.yaml
+
 # misc
 .DS_Store
 *.pem

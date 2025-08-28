@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # MongoDB Database
@@ -113,13 +113,19 @@ services:
     restart: unless-stopped
     ports:
       - "5050:5050"
-    command: [
-      "--host", "0.0.0.0",
-      "--port", "5050",
-      "--seed", "0",
-      "--accounts", "10",
-      "--initial-balance", "1000000000000000000000"
-    ]
+    command:
+      [
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5050",
+        "--seed",
+        "0",
+        "--accounts",
+        "10",
+        "--initial-balance",
+        "1000000000000000000000",
+      ]
     networks:
       - sambha-network
 
@@ -129,4 +135,4 @@ volumes:
 
 networks:
   sambha-network:
-    driver: bridge 
+    driver: bridge

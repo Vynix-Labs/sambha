@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { toast } from "react-toastify";
 
-const dummyAuth = { role: "planner" }; // Change this to 'vendor' or 'guest' to test
+// const dummyAuth = { role: "planner" }; // Change this to 'vendor' or 'guest' to test
 
-const allowedRoles = ["planner", "vendor", "guest"];
+// const allowedRoles = ["planner", "vendor", "guest"];
 
 const ProtectedRoute = ({
   children,

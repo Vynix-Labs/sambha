@@ -2,22 +2,26 @@ import sendEmail from "@/lib/email/sender";
 import env from "@/lib/config/env";
 
 interface VerificationEmailData {
-    email: string;
-    verificationToken: string;
-    referralCode: string;
+  email: string;
+  verificationToken: string;
+  referralCode: string;
 }
 
 interface WelcomeEmailData {
-    email: string;
-    referralCode: string;
-    totalReferrals?: number;
+  email: string;
+  referralCode: string;
+  totalReferrals?: number;
 }
 
 export class EmailService {
-    static generateVerificationEmailTemplate(email: string, verificationToken: string, totalWaitlistCount: number): string {
-        const verificationUrl = `${env.FRONTEND_URL || 'http://localhost:3000'}/verify?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+  static generateVerificationEmailTemplate(
+    email: string,
+    verificationToken: string,
+    totalWaitlistCount: number
+  ): string {
+    const verificationUrl = `${env.FRONTEND_URL || "http://localhost:3000"}/verify?token=${verificationToken}&email=${encodeURIComponent(email)}`;
 
-        return `
+    return `
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -194,14 +198,23 @@ export class EmailService {
             </body>
             </html>
         `;
-    }
+  }
 
-    static generateWelcomeEmailTemplate(email: string, referralCode: string, position: number, totalWaitlistCount: number): string {
-        const shareUrl = `${env.FRONTEND_URL || 'http://localhost:3000'}?ref=${referralCode}`;
-        const twitterText = encodeURIComponent(`Just joined the Sambha waitlist! 🎉 Event planning made easy. Join me: ${shareUrl}`);
-        const linkedinText = encodeURIComponent(`Excited to join Sambha! Event planning simplified: ${shareUrl}`);
+  static generateWelcomeEmailTemplate(
+    email: string,
+    referralCode: string,
+    position: number,
+    totalWaitlistCount: number
+  ): string {
+    const shareUrl = `${env.FRONTEND_URL || "http://localhost:3000"}?ref=${referralCode}`;
+    const twitterText = encodeURIComponent(
+      `Just joined the Sambha waitlist! 🎉 Event planning made easy. Join me: ${shareUrl}`
+    );
+    const linkedinText = encodeURIComponent(
+      `Excited to join Sambha! Event planning simplified: ${shareUrl}`
+    );
 
-        return `
+    return `
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -409,9 +422,13 @@ export class EmailService {
                             <div class="position">#${position}</div>
                             <div class="position-label">Your Position</div>
                             <p style="margin-top: 15px; color: rgba(255, 255, 255, 0.8); font-size: 14px;">
-                                ${position <= 100 ? "VIP section! 🌟" :
-                position <= 500 ? "Early bird! 🐛" :
-                    "Perfect timing! 🕺"}
+                                ${
+                                  position <= 100
+                                    ? "VIP section! 🌟"
+                                    : position <= 500
+                                      ? "Early bird! 🐛"
+                                      : "Perfect timing! 🕺"
+                                }
                             </p>
                         </div>
                         
@@ -457,10 +474,15 @@ export class EmailService {
             </body>
             </html>
         `;
-    }
+  }
 
-    static generateReferralSuccessEmailTemplate(email: string, referredEmail: string, newPoints: number, newRank: number): string {
-        return `
+  static generateReferralSuccessEmailTemplate(
+    email: string,
+    referredEmail: string,
+    newPoints: number,
+    newRank: number
+  ): string {
+    return `
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -693,58 +715,79 @@ export class EmailService {
             </body>
             </html>
         `;
+  }
+
+  async sendVerificationEmail(
+    data: VerificationEmailData,
+    totalWaitlistCount: number
+  ): Promise<void> {
+    try {
+      const html = EmailService.generateVerificationEmailTemplate(
+        data.email,
+        data.verificationToken,
+        totalWaitlistCount
+      );
+
+      await sendEmail(
+        data.email,
+        "🚀 Verify Your Email - Welcome to Sambha!",
+        html
+      );
+
+      console.log(`Verification email sent to: ${data.email}`);
+    } catch (error) {
+      console.error("Failed to send verification email:", error);
+      throw new Error("Failed to send verification email");
     }
+  }
 
-    async sendVerificationEmail(data: VerificationEmailData, totalWaitlistCount: number): Promise<void> {
-        try {
-            const html = EmailService.generateVerificationEmailTemplate(data.email, data.verificationToken, totalWaitlistCount);
+  async sendWelcomeEmail(
+    data: WelcomeEmailData,
+    totalWaitlistCount: number
+  ): Promise<void> {
+    try {
+      const html = EmailService.generateWelcomeEmailTemplate(
+        data.email,
+        data.referralCode,
+        data.totalReferrals || 0,
+        totalWaitlistCount
+      );
 
-            await sendEmail(
-                data.email,
-                "🚀 Verify Your Email - Welcome to Sambha!",
-                html
-            );
+      await sendEmail(data.email, "🎉 Welcome to Sambha - You're In!", html);
 
-            console.log(`Verification email sent to: ${data.email}`);
-        } catch (error) {
-            console.error('Failed to send verification email:', error);
-            throw new Error('Failed to send verification email');
-        }
+      console.log(`Welcome email sent to: ${data.email}`);
+    } catch (error) {
+      console.error("Failed to send welcome email:", error);
+      throw new Error("Failed to send welcome email");
     }
+  }
 
-    async sendWelcomeEmail(data: WelcomeEmailData, totalWaitlistCount: number): Promise<void> {
-        try {
-            const html = EmailService.generateWelcomeEmailTemplate(data.email, data.referralCode, data.totalReferrals || 0, totalWaitlistCount);
+  async sendReferralSuccessEmail(
+    referrerEmail: string,
+    newUserEmail: string,
+    newPoints: number,
+    newRank: number
+  ): Promise<void> {
+    try {
+      const html = EmailService.generateReferralSuccessEmailTemplate(
+        referrerEmail,
+        newUserEmail,
+        newPoints,
+        newRank
+      );
 
-            await sendEmail(
-                data.email,
-                "🎉 Welcome to Sambha - You're In!",
-                html
-            );
+      await sendEmail(
+        referrerEmail,
+        "🎉 New Referral Success - 10 Points Earned!",
+        html
+      );
 
-            console.log(`Welcome email sent to: ${data.email}`);
-        } catch (error) {
-            console.error('Failed to send welcome email:', error);
-            throw new Error('Failed to send welcome email');
-        }
+      console.log(`Referral success email sent to: ${referrerEmail}`);
+    } catch (error) {
+      console.error("Failed to send referral success email:", error);
+      // Don't throw here as this is a nice-to-have email
     }
-
-    async sendReferralSuccessEmail(referrerEmail: string, newUserEmail: string, newPoints: number, newRank: number): Promise<void> {
-        try {
-            const html = EmailService.generateReferralSuccessEmailTemplate(referrerEmail, newUserEmail, newPoints, newRank);
-
-            await sendEmail(
-                referrerEmail,
-                "🎉 New Referral Success - 10 Points Earned!",
-                html
-            );
-
-            console.log(`Referral success email sent to: ${referrerEmail}`);
-        } catch (error) {
-            console.error('Failed to send referral success email:', error);
-            // Don't throw here as this is a nice-to-have email
-        }
-    }
+  }
 }
 
 export default new EmailService();

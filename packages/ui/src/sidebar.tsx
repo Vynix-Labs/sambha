@@ -1,5 +1,4 @@
 "use client";
-
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeftOpenIcon } from "lucide-react";
@@ -241,15 +240,17 @@ function SidebarTrigger({ onClick }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <Button
-      className="bg-transparent hover:bg-transparent"
-      onClick={(event) => {
-        onClick?.(event);
-        toggleSidebar();
-      }}
-    >
-      <PanelLeftOpenIcon className="text-primary-darkPurple" />
-    </Button>
+    <>
+      <Button
+        className="bg-transparent hover:bg-transparent"
+        onClick={(event) => {
+          onClick?.(event);
+          toggleSidebar();
+        }}
+      >
+        <PanelLeftOpenIcon className="text-primary-darkPurple" />
+      </Button>
+    </>
   );
 }
 
@@ -357,7 +358,11 @@ function SidebarGroupLabel({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: {
+  className?: string;
+  asChild?: boolean;
+  children?: React.ReactNode;
+}) {
   const Comp = asChild ? Slot : "div";
 
   return (
@@ -378,7 +383,11 @@ function SidebarGroupAction({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+}: {
+  className?: string;
+  asChild?: boolean;
+  children?: React.ReactNode;
+}) {
   const Comp = asChild ? Slot : "button";
 
   return (
@@ -463,7 +472,8 @@ function SidebarMenuButton({
   tooltip,
   className,
   ...props
-}: React.ComponentProps<"button"> & {
+}: {
+  className?: string;
   asChild?: boolean;
   isActive?: boolean;
   tooltip?: string | React.ComponentProps<typeof TooltipContent>;
@@ -510,7 +520,8 @@ function SidebarMenuAction({
   asChild = false,
   showOnHover = false,
   ...props
-}: React.ComponentProps<"button"> & {
+}: {
+  className?: string;
   asChild?: boolean;
   showOnHover?: boolean;
 }) {
@@ -632,7 +643,8 @@ function SidebarMenuSubButton({
   isActive = false,
   className,
   ...props
-}: React.ComponentProps<"a"> & {
+}: {
+  className?: string;
   asChild?: boolean;
   size?: "sm" | "md";
   isActive?: boolean;

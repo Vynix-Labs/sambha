@@ -54,11 +54,13 @@ This script will:
 If you prefer manual setup:
 
 1. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
 
 2. **Set up environment files:**
+
    ```bash
    cp .env.example .env
    cp apps/backend/.env.example apps/backend/.env.local
@@ -66,11 +68,13 @@ If you prefer manual setup:
    ```
 
 3. **Start infrastructure services:**
+
    ```bash
    docker-compose up -d mongodb redis starknet-devnet
    ```
 
 4. **Build shared packages:**
+
    ```bash
    pnpm run build --filter="./packages/*"
    ```
@@ -254,8 +258,8 @@ The monorepo uses pnpm workspaces configured in `pnpm-workspace.yaml`:
 
 ```yaml
 packages:
-    - "apps/*"
-    - "packages/*"
+  - "apps/*"
+  - "packages/*"
 ```
 
 ### Adding Dependencies
@@ -428,17 +432,20 @@ Husky runs pre-commit hooks for:
 ### Common Issues
 
 1. **Dependencies not installing**
+
    ```bash
    rm -rf node_modules pnpm-lock.yaml
    pnpm install
    ```
 
 2. **Turbo cache issues**
+
    ```bash
    pnpm turbo clean
    ```
 
 3. **Docker services not starting**
+
    ```bash
    docker-compose down
    docker-compose up --build

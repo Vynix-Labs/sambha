@@ -1,7 +1,7 @@
-type Props = {};
+import React from "react";
 
-function page({}: Props) {
+const page = () => {
   return <div>page</div>;
-}
+};
 
 export default page;
