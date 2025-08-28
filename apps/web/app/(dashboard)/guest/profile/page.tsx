@@ -15,7 +15,7 @@ export default function ProfilePage() {
     <div>
       <div className="mt-4 space-y-4">
         <h1 className="text-[42px] font-bold mb-4 text-primary-dark font-[">
-         Profile
+          Profile
         </h1>
         <div className="flex flex-col md:flex-row items-center gap-4 justify-between">
           <div className="flex flex-col md:flex-row items-center gap-2">
@@ -38,10 +38,13 @@ export default function ProfilePage() {
             </div>
           </div>
           <Button
-            className="max-md:w-full"
-            onClick={() => router.push("/profile/settings")}
+            className="max-md:w-full border-neutral-violet"
+            variant="outline"
+            onClick={() => router.push("/guest/profile/settings")}
           >
-            Profile Settings
+            <span className=" bg-gradientText bg-clip-text text-transparent font-medium">
+              Profile Settings
+            </span>
           </Button>
         </div>
         <ProfileAboutCalendar />
