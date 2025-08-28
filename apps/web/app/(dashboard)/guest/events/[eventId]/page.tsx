@@ -17,6 +17,7 @@ import MapImage from "../../../../../public/map.png";
 
 import ClockIcon from "components/icons/ClockIcon";
 import { LocationSearch } from "@sambha/ui/form/LocationSearch";
+import Map from "components/guest/Map";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -201,8 +202,10 @@ function EventDetailsPage() {
             <div className="space-y-2">
               <div
                 style={{ backgroundImage: `url(${MapImage.src})` }}
-                className="p-6 border border-[#E4E7EC] rounded-lg bg-cover bg-center h-64 w-full relative"
-              ></div>
+                className=" border border-[#E4E7EC] rounded-lg bg-cover bg-center h-64 w-full relative"
+              >
+                <Map />
+              </div>
             </div>
           </div>
         </div>
