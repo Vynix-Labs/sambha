@@ -1,10 +1,12 @@
 // components/event-pass/EventPass.tsx
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import avatar from "assets/images/avatar2.png";
-import QrCode from "assets/images/QR-code.png";
+// import QrCode from "assets/images/QR-code.png";
 import bgImage from "assets/images/event-pass-bg.png";
 import React from "react";
+import QrCodeGenerator from "./QrCodeGenerator";
 
 interface EventPassProps {
   date: string;
@@ -14,6 +16,8 @@ interface EventPassProps {
 }
 
 const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
+  const [qrValue] = useState("https://example.com/ticket/123");
+
   return (
     <div
       className="relative rounded-xl flex w-full items-center md:p-6 p-2"
@@ -61,14 +65,15 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
 
       {/* QR Code (Right) */}
       <div className="flex justify-center items-center w-32">
-        <Image
+        {/* <Image
           src={QrCode}
           alt="QrCode"
           width={96}
           height={96}
           quality={100}
           className="h-24 w-24 object-contain"
-        />
+        /> */}
+        <QrCodeGenerator value={qrValue} size={96} />
       </div>
     </div>
   );
