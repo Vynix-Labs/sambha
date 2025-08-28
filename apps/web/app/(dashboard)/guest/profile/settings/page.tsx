@@ -16,7 +16,7 @@ export default function Settingspage() {
 
   return (
     <div className="mt-4">
-      <h1 className="text-primary-dark text-[42px] font-bold">Settings</h1>
+      <h1 className="text-primary-dark text-xl md:text-[42px] font-bold">Settings</h1>
       <div className="mt-6">
         <SettingTab
           activeTab={activeTab}
