@@ -7,7 +7,7 @@ function EventCard({ event }: { event: Event }) {
   return (
     <Link
       href={`events/${event.id}`}
-      className="flex  gap-3 flex-col sm:flex-row"
+      className="flex  gap-3 flex-col sm:flex-row border-[0.8px]  text-pretty p-2 max-w-sm border-[#6260604f] rounded-xl shadow-md"
     >
       <div className="rounded-xl overflow-hidden h-24 w-36">
         <Image
@@ -23,7 +23,7 @@ function EventCard({ event }: { event: Event }) {
             You were invited
           </p>
         </div>
-        <p className="text-base font-medium text-[#070D17] leading-[140%] tracking-[-1%]">
+        <p className="text-base font-medium text-[#070D17] leading-[140%] tracking-[-1%] truncate ">
           {event.name}
         </p>
         <div className="flex text-sm font-normal items-center gap-2">

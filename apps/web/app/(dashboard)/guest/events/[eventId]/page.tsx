@@ -77,7 +77,7 @@ function EventDetailsPage() {
         <span className="font-medium text-base">{eventData.name}</span>
       </nav>
 
-      <div className="flex gap-6">
+      <div className="flex gap-6 flex-col md:flex-row">
         {/* Left: Main Content */}
         <div className="space-y-11 sm:w-full flex-1">
           <Image
