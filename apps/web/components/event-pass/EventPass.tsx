@@ -37,12 +37,12 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
         {/* Date and Time */}
         <div className="flex justify-between">
           <div>
-            <p className="text-xs text-white">Date</p>
+            <p className="text-xs text-gray-base">Date</p>
             <p className="text-sm">{date}</p>
           </div>
 
           <div>
-            <p className="text-xs text-white">Time</p>
+            <p className="text-xs text-gray-base">Time</p>
             <p className="text-sm">{time}</p>
           </div>
         </div>
@@ -61,18 +61,10 @@ const EventPass: React.FC<EventPassProps> = ({ date, time, name }) => {
       </div>
 
       {/* Divider (Middle) */}
-      <div className="border-l border-dashed border-2 border-primary-light h-full mx-6" />
+      <div className="self-stretch border-l-2 border-dashed border-primary-light mx-6" />
 
       {/* QR Code (Right) */}
-      <div className="flex justify-center items-center w-32">
-        {/* <Image
-          src={QrCode}
-          alt="QrCode"
-          width={96}
-          height={96}
-          quality={100}
-          className="h-24 w-24 object-contain"
-        /> */}
+      <div className="flex justify-center items-center w-32 pr-2">
         <QrCodeGenerator value={qrValue} size={96} />
       </div>
     </div>

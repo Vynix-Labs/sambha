@@ -74,21 +74,13 @@ export default function Passpage() {
         {passes.map((pass, index) => (
           <div key={index} className="flex flex-col gap-4">
             {/* Event pass card */}
-            <div
-              onClick={toggleModal}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === "Enter" && toggleModal()}
-              style={{ cursor: "pointer", width: "100%" }}
-              className="focus:outline-none"
-            >
-              <EventPass
-                date={pass.date}
-                image="assets/images/event-pass-bg.png"
-                time={pass.time}
-                name={pass.name}
-              />
-            </div>
+
+            <EventPass
+              date={pass.date}
+              image="assets/images/event-pass-bg.png"
+              time={pass.time}
+              name={pass.name}
+            />
 
             {/* Download button */}
             <div className="flex justify-end">
