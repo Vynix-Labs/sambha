@@ -62,7 +62,7 @@ function EventDetailsPage() {
   if (!eventData) return <LoadingState />;
 
   return (
-    <div className="pt-10 space-y-8 bg-gradient-to-bl from-[#25417F] size-full to-[#3C2C72]">
+    <div className="p-10 space-y-8 bg-gradient-to-bl from-[#25417F] size-full to-[#3C2C72]">
       {/* Breadcrumb */}
       <nav className="flex gap-2 text-lg md:text-xl items-center my-6 text-primary-light">
         <button
@@ -202,7 +202,7 @@ function EventDetailsPage() {
             <div className="space-y-2">
               <div
                 style={{ backgroundImage: `url(${MapImage.src})` }}
-                className=" border border-[#E4E7EC] rounded-lg bg-cover bg-center h-64 w-full relative"
+                className="  rounded-lg bg-cover bg-center h-44 w-full relative"
               >
                 <Map />
               </div>
