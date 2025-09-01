@@ -28,7 +28,7 @@ export default function ProfileAboutCalendar() {
     { day: "27", label: "30H" },
     { day: "28", label: "MON" },
     { day: "29", label: "TUE" },
-    { day: "30", label: "WEB" },
+    { day: "30", label: "WEB", isCurrent: true },
     { day: "1", label: "THU" },
     { day: "2", label: "NEW", isCurrent: true },
     { day: "3", label: "SAT" },
