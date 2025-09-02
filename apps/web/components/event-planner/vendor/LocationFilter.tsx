@@ -1,3 +1,4 @@
+// components/LocationFilter.tsx
 "use client";
 
 import { ChevronDown } from "lucide-react";
@@ -21,6 +22,12 @@ export function LocationFilter({
   ],
 }: LocationFilterProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLocationChange = (location: string) => {
+    onLocationChange(location);
+    setIsOpen(false);
+    // Don't navigate, just update the state
+  };
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -85,10 +92,7 @@ export function LocationFilter({
                     ":hover": { backgroundColor: "#F9FAFB" },
                   }),
                 }}
-                onClick={() => {
-                  onLocationChange("All");
-                  setIsOpen(false);
-                }}
+                onClick={() => handleLocationChange("All")}
               >
                 All Locations
               </button>
@@ -112,10 +116,7 @@ export function LocationFilter({
                       ":hover": { backgroundColor: "#F9FAFB" },
                     }),
                   }}
-                  onClick={() => {
-                    onLocationChange(location);
-                    setIsOpen(false);
-                  }}
+                  onClick={() => handleLocationChange(location)}
                 >
                   {location}
                 </button>

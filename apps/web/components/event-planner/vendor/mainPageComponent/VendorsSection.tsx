@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { VendorsSkeleton } from "./VendorsSkeleton";
@@ -70,11 +70,49 @@ export function VendorsSection({
         <h2 className="text-xl font-semibold mb-6 text-[#2a1d52]">
           Popular vendors
         </h2>
-        <VendorsGrid
-          vendors={filteredVendors}
-          className="grid-cols-2 sm:grid-cols-2 lg:grid-cols-5"
-          imageHeight="h-82 sm:h-40"
-        />
+
+        {filteredVendors.length > 0 ? (
+          <VendorsGrid
+            vendors={filteredVendors}
+            className="grid-cols-2 sm:grid-cols-2 lg:grid-cols-5"
+            imageHeight="h-82 sm:h-40"
+          />
+        ) : (
+          <div className="py-12 text-center">
+            <div className="max-w-md mx-auto">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <h3 className="mt-2 text-lg font-medium text-gray-900">
+                No vendors found
+              </h3>
+              <p className="mt-1 text-gray-500">
+                We couldn&apos;t find any vendors in{" "}
+                {selectedLocation === "All" ? "any location" : selectedLocation}
+                .
+              </p>
+              <div className="mt-6">
+                <button
+                  onClick={() => onLocationChange("All")}
+                  className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                >
+                  Show all locations
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

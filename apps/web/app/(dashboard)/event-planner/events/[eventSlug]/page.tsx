@@ -6,8 +6,6 @@ import Image, { StaticImageData } from "next/image";
 // import Link from "next/link";
 // import { useParams } from "next/navigation";
 
-
-
 // === Assets ===
 import eventImage from "../../../../../public/event-planner/background.png";
 import back from "../../../../../public/event-planner/arrow.png";
@@ -34,6 +32,12 @@ import frame8 from "../../../../../public/event-planner/Frame 8.png";
 import frame9 from "../../../../../public/event-planner/Frame 9.png";
 import frame10 from "../../../../../public/event-planner/Frame 10.png";
 import frame11 from "../../../../../public/event-planner/Frame 11.png";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { slugify } from "hooks/Slugify";
+import Guest from "./guest";
+import BudgetBreakDown from "./budget";
+import { dummyEvents, FullEventsProps } from "types/events/dummyEvents";
 
 type ThemeConfig = {
   name: string;
@@ -65,8 +69,8 @@ const defaultTheme: ThemeConfig = {
     borderColor: "border-[#98A2B3]/30",
     gradientFrom: "from-[#C96FFF]",
     gradientTo: "to-[#2B2BCF]",
-    shadowStyle: "shadow-xl shadow-black/10"
-  }
+    shadowStyle: "shadow-xl shadow-black/10",
+  },
 };
 
 const themeConfigs: ThemeConfig[] = [
@@ -83,8 +87,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-[#98A2B3]/30",
       gradientFrom: "from-[#C96FFF]",
       gradientTo: "to-[#2B2BCF]",
-      shadowStyle: "shadow-xl shadow-black/10"
-    }
+      shadowStyle: "shadow-xl shadow-black/10",
+    },
   },
   {
     name: "Classic Blue",
@@ -98,8 +102,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-blue-200/50",
       gradientFrom: "from-blue-500",
       gradientTo: "to-blue-700",
-      shadowStyle: "shadow-xl shadow-blue-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-blue-500/20",
+    },
   },
   {
     name: "Soft Pink",
@@ -113,8 +117,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-pink-200/50",
       gradientFrom: "from-pink-500",
       gradientTo: "to-rose-600",
-      shadowStyle: "shadow-xl shadow-pink-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-pink-500/20",
+    },
   },
   {
     name: "Vintage",
@@ -128,8 +132,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-amber-200/50",
       gradientFrom: "from-amber-500",
       gradientTo: "to-orange-600",
-      shadowStyle: "shadow-xl shadow-amber-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-amber-500/20",
+    },
   },
   {
     name: "Modern Black",
@@ -143,8 +147,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-gray-300/50",
       gradientFrom: "from-gray-700",
       gradientTo: "to-gray-900",
-      shadowStyle: "shadow-xl shadow-gray-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-gray-500/20",
+    },
   },
   {
     name: "Nature Green",
@@ -158,8 +162,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-green-200/50",
       gradientFrom: "from-green-500",
       gradientTo: "to-emerald-600",
-      shadowStyle: "shadow-xl shadow-green-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-green-500/20",
+    },
   },
   {
     name: "Royal Purple",
@@ -173,8 +177,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-purple-200/50",
       gradientFrom: "from-purple-500",
       gradientTo: "to-violet-600",
-      shadowStyle: "shadow-xl shadow-purple-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-purple-500/20",
+    },
   },
   {
     name: "Sunset",
@@ -188,8 +192,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-orange-200/50",
       gradientFrom: "from-orange-500",
       gradientTo: "to-red-500",
-      shadowStyle: "shadow-xl shadow-orange-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-orange-500/20",
+    },
   },
   {
     name: "Ocean Blue",
@@ -203,8 +207,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-cyan-200/50",
       gradientFrom: "from-cyan-500",
       gradientTo: "to-blue-600",
-      shadowStyle: "shadow-xl shadow-cyan-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-cyan-500/20",
+    },
   },
   {
     name: "Forest",
@@ -218,8 +222,8 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-emerald-200/50",
       gradientFrom: "from-emerald-500",
       gradientTo: "to-green-700",
-      shadowStyle: "shadow-xl shadow-emerald-500/20"
-    }
+      shadowStyle: "shadow-xl shadow-emerald-500/20",
+    },
   },
   {
     name: "Golden",
@@ -233,12 +237,16 @@ const themeConfigs: ThemeConfig[] = [
       borderColor: "border-yellow-200/50",
       gradientFrom: "from-yellow-500",
       gradientTo: "to-amber-600",
-      shadowStyle: "shadow-xl shadow-yellow-500/20"
-    }
-  }
+      shadowStyle: "shadow-xl shadow-yellow-500/20",
+    },
+  },
 ];
 
-function ThemeSelector({ selectedTheme, setSelectedTheme, onClose }: {
+function ThemeSelector({
+  selectedTheme,
+  setSelectedTheme,
+  onClose,
+}: {
   selectedTheme: ThemeConfig | null;
   setSelectedTheme: (theme: ThemeConfig) => void;
   onClose: () => void;
@@ -257,19 +265,26 @@ function ThemeSelector({ selectedTheme, setSelectedTheme, onClose }: {
         >
           &times;
         </button>
-        <h1 className="text-3xl font-bold text-[#2A1D52] mb-6">Choose a theme</h1>
+        <h1 className="text-3xl font-bold text-[#2A1D52] mb-6">
+          Choose a theme
+        </h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {themeConfigs.map((theme, index) => (
             <div
               key={index}
               onClick={() => handleThemeSelect(theme)}
-              className={`border-3 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl ${selectedTheme?.name === theme.name
-                ? "border-[#2A1D52] shadow-lg scale-105"
-                : "border-transparent hover:border-gray-200"
-                }`}
+              className={`border-3 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                selectedTheme?.name === theme.name
+                  ? "border-[#2A1D52] shadow-lg scale-105"
+                  : "border-transparent hover:border-gray-200"
+              }`}
             >
               <div className="relative">
-                <Image src={theme.image} alt={theme.name} className="w-full h-32 object-cover" />
+                <Image
+                  src={theme.image}
+                  alt={theme.name}
+                  className="w-full h-32 object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 {theme.isDefault && (
                   <div className="absolute top-2 right-2 bg-[#2A1D52] text-white px-2 py-1 rounded-full text-xs font-semibold">
@@ -277,7 +292,9 @@ function ThemeSelector({ selectedTheme, setSelectedTheme, onClose }: {
                   </div>
                 )}
               </div>
-              <p className="text-center text-base font-semibold p-3 text-gray-800">{theme.name}</p>
+              <p className="text-center text-base font-semibold p-3 text-gray-800">
+                {theme.name}
+              </p>
             </div>
           ))}
         </div>
@@ -298,10 +315,35 @@ function ThemeSelector({ selectedTheme, setSelectedTheme, onClose }: {
 }
 
 function Page() {
+  const params = useParams();
+  const [event, setEvent] = useState<FullEventsProps>();
+  const router = useRouter();
+  const eventSlug = params?.eventSlug;
+
+  useEffect(() => {
+    if (eventSlug) {
+      const foundEvent = dummyEvents.find((newEvent: FullEventsProps) => {
+        console.log(slugify(newEvent.name), "event Name");
+
+        return slugify(newEvent.name) === slugify(eventSlug.toString());
+      });
+      setEvent(foundEvent);
+    }
+  }, [eventSlug]);
+
   const status = [
-    { stat: "Going", value: 0 },
-    { stat: "Pending", value: 0 },
-    { stat: "Not going", value: 0 },
+    {
+      stat: "Going",
+      value: event?.guests.map((guest) => guest.status === "going").length,
+    },
+    {
+      stat: "Pending",
+      value: event?.guests.map((guest) => guest.status === "pending").length,
+    },
+    {
+      stat: "Not going",
+      value: event?.guests.map((guest) => guest.status === "not_going").length,
+    },
   ];
 
   const edits = [
@@ -316,7 +358,6 @@ function Page() {
   const [openTheme, setOpenTheme] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState<ThemeConfig>(defaultTheme);
   const [banner, setBanner] = useState<string | null>(null);
-  const [welcomeText] = useState("Celebrate the union of Oliver and Emily at the beautiful Rosewood Estate. Enjoy a romantic ceremony, followed by a gourmet dinner and lively dance. Join us for an evening of love, joy, and unforgettable memories as the couple begins their journey together.");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -329,8 +370,309 @@ function Page() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  return (
+  const handleNavigateBack = () => {
+    router.back();
+  };
 
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "Details":
+        return (
+          <main className="grid grid-cols-1 mdlg:grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left Section */}
+            <section className="space-y-6">
+              {/* Event Banner */}
+              <div className="relative group">
+                {banner ? (
+                  <Image
+                    src={banner}
+                    alt="Custom banner"
+                    className={`w-full rounded-2xl object-cover max-h-[400px] ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
+                    width={800}
+                    height={400}
+                  />
+                ) : (
+                  <Image
+                    src={eventImage}
+                    alt="Default banner"
+                    className={`w-full rounded-2xl object-cover max-h-[400px] ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
+                    width={800}
+                    height={400}
+                  />
+                )}
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`absolute bottom-4 left-4 ${selectedTheme.styles.cardBg} px-6 py-3 rounded-full text-base font-medium ${selectedTheme.styles.primaryText} ${selectedTheme.styles.shadowStyle} transition-all duration-300 hover:scale-105 backdrop-blur-sm`}
+                >
+                  Edit background
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleBannerUpload}
+                  className="hidden"
+                />
+              </div>
+
+              {/* Hosts Section */}
+              <div
+                className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02]`}
+              >
+                <div className="flex flex-col mdlg:flex-col md:flex-row justify-between gap-4 pb-4 border-b-2 border-current/20">
+                  <div>
+                    <h1
+                      className={`text-2xl ${selectedTheme.styles.primaryText} font-semibold`}
+                    >
+                      Hosts
+                    </h1>
+                    <p
+                      className={`${selectedTheme.styles.secondaryText} antialiased leading-relaxed`}
+                    >
+                      Add event manager to see your event through.
+                    </p>
+                  </div>
+                  <button
+                    className={`bg-gradient-to-r ${selectedTheme.styles.gradientFrom} ${selectedTheme.styles.gradientTo} text-white font-semibold text-lg py-3 px-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg`}
+                  >
+                    + Add host
+                  </button>
+                </div>
+
+                {/* Host List */}
+                <div className="space-y-4 mt-4">
+                  {event &&
+                    [event.host, event.coHost].map((official, idx) => (
+                      <div
+                        key={idx}
+                        className={`flex flex-col w-full md:flex-row gap-3  justify-between items-center p-4 rounded-xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02] hover:shadow-md bg-white/50`}
+                      >
+                        <div className="flex gap-3 items-center">
+                          <Image
+                            src={image}
+                            alt="host"
+                            width={40}
+                            height={40}
+                            className="rounded-full"
+                          />
+                          <div>
+                            <h2
+                              className={`${selectedTheme.styles.primaryText} font-bold`}
+                            >
+                              {official.name}
+                            </h2>
+                            <p
+                              className={`${selectedTheme.styles.secondaryText} antialiased leading-relaxed`}
+                            >
+                              {official.email}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex gap-3 items-center">
+                          <h2 className="text-[#2B2BCF] font-semibold">
+                            {official.role}
+                          </h2>
+                          <Image
+                            src={edit}
+                            alt="edit"
+                            height={20}
+                            width={20}
+                            className="cursor-pointer hover:scale-110 transition-transform"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              {/* Guests Section */}
+              <div
+                className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02]`}
+              >
+                <div className="flex flex-col md:flex-row gap-2 items-start md:items-center justify-between mb-4">
+                  <div>
+                    <h1
+                      className={`text-2xl font-semibold ${selectedTheme.styles.primaryText}`}
+                    >
+                      Guests
+                    </h1>
+                    <p
+                      className={`text-base ${selectedTheme.styles.secondaryText}`}
+                    >
+                      Add event managers to see your event through
+                    </p>
+                  </div>
+                  <p
+                    className={`cursor-pointer ${selectedTheme.styles.secondaryText} hover:underline antialiased leading-relaxed`}
+                  >
+                    View all &gt;
+                  </p>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {status.map((stat, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col gap-2 text-center"
+                    >
+                      <p
+                        className={`antialiased leading-relaxed ${selectedTheme.styles.primaryText} text-2xl font-bold`}
+                      >
+                        {stat.value}
+                      </p>
+                      <h2
+                        className={`${selectedTheme.styles.secondaryText} text-base`}
+                      >
+                        {stat.stat}
+                      </h2>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Right Section */}
+            <section className="space-y-6">
+              {/* Event Title and Details */}
+              <div
+                className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300  hover:scale-[1.02]`}
+              >
+                <h1
+                  className={`text-3xl font-bold mb-4 ${selectedTheme.styles.primaryText}`}
+                >
+                  {event?.name}
+                </h1>
+                <div
+                  className={`space-y-3 text-base ${selectedTheme.styles.primaryText}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={location}
+                      alt="location"
+                      width={20}
+                      height={20}
+                    />
+                    <h2>{event?.venue.address}</h2>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Image src={date} alt="date" width={20} height={20} />
+                    <h2>{event?.date}</h2>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Image src={time} alt="time" width={20} height={20} />
+                    <h2>{event?.time.start}</h2>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-4 gap-4">
+                {edits.map((edit, index) => (
+                  <div
+                    key={index}
+                    className={`flex flex-col items-center cursor-pointer ${selectedTheme.styles.primaryText} transition-all duration-300 hover:scale-110`}
+                    onClick={
+                      edit.tag === "Theme" ? () => setOpenTheme(true) : () => {}
+                    }
+                  >
+                    <div
+                      className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 hover:shadow-lg`}
+                    >
+                      <Image
+                        src={edit.imageUrl}
+                        alt={edit.tag}
+                        width={24}
+                        height={24}
+                      />
+                    </div>
+                    <h2 className="mt-2 text-base font-medium">{edit.tag}</h2>
+                  </div>
+                ))}
+              </div>
+
+              {/* Sitting Chart Section */}
+              <div
+                className={`flex flex-col px-6 py-8 bg-gradient-to-br ${selectedTheme.styles.gradientFrom} ${selectedTheme.styles.gradientTo} items-center rounded-2xl text-white-base transition-all duration-300 hover:scale-[1.02] ${selectedTheme.styles.shadowStyle}`}
+              >
+                <div className="flex gap-2 items-center mb-2">
+                  <Image src={sitting} alt="sitting" width={20} height={20} />
+                  <h2 className="text-lg font-semibold">
+                    Create sitting chart
+                  </h2>
+                </div>
+                <p className="antialiased leading-relaxed text-center text-white/90">
+                  Assign seats to guests and notify them
+                </p>
+              </div>
+
+              {/* About Section */}
+              <div
+                className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300`}
+              >
+                <h1
+                  className={`${selectedTheme.styles.primaryText} text-2xl font-semibold mb-4 pb-2 border-b ${selectedTheme.styles.borderColor}`}
+                >
+                  About
+                </h1>
+                <p
+                  className={`antialiased leading-relaxed text-justify ${selectedTheme.styles.primaryText} leading-relaxed`}
+                >
+                  {event?.description}
+                </p>
+              </div>
+
+              {/* Location Section */}
+              <div
+                className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300`}
+              >
+                <h1
+                  className={`${selectedTheme.styles.primaryText} text-2xl font-semibold mb-4 pb-2 border-b ${selectedTheme.styles.borderColor}`}
+                >
+                  Location
+                </h1>
+                <h2
+                  className={`${selectedTheme.styles.primaryText} font-semibold text-lg`}
+                >
+                  {event?.venue.address}{" "}
+                </h2>
+                <p className={`${selectedTheme.styles.secondaryText} mb-4`}>
+                  {event?.venue.name}{" "}
+                </p>
+                <div className="relative group">
+                  <Image
+                    src={map}
+                    alt="map"
+                    className={`w-full h-40 object-cover rounded-xl ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
+                    width={600}
+                    height={160}
+                  />
+                </div>
+              </div>
+            </section>
+          </main>
+        );
+
+      case "Guests":
+        return (
+          <div>
+            <div className="flex items-center gap-2">
+              <div className="flex grow">
+                <Guest filterEVent={event} />
+              </div>
+            </div>
+          </div>
+        );
+
+      case "Tasks":
+        return <div>Tasks Tab Coming Soon</div>;
+
+      case "Budget":
+        return <div>{event && <BudgetBreakDown event={event} />}</div>;
+
+      default:
+        return null;
+    }
+  };
+  return (
     <div className="font-fractul min-h-screen relative">
       {/* Fixed Background with Theme Image */}
       <div
@@ -343,205 +685,70 @@ function Page() {
         }}
       />
 
-      <div className={`fixed inset-0 -z-10 transition-all duration-700 ${selectedTheme.styles.overlay}`} />
+      <div
+        className={`fixed inset-0 -z-10 transition-all duration-700 ${selectedTheme.styles.overlay}`}
+      />
 
       {/* Main Content Container */}
       <div className={`relative min-h-screen transition-all duration-500`}>
-        <div className={`p-4 md:p-6 ${selectedTheme.styles.contentBg} ${selectedTheme.styles.shadowStyle} rounded-2xl m-4 transition-all duration-500`}>
-
+        <div
+          className={`p-4 md:p-6 ${selectedTheme.styles.contentBg} ${selectedTheme.styles.shadowStyle} rounded-2xl m-4 transition-all duration-500`}
+        >
           {/* Navigation */}
-          <nav className={`flex gap-2 ${selectedTheme.styles.secondaryText} text-lg md:text-xl items-center my-6`}>
-            <Image src={back} alt="back-arrow" width={20} height={20} className="transition-all duration-300 hover:scale-110" />
-            <span className="cursor-pointer hover:underline transition-all">
-              Events / <span className={`${selectedTheme.styles.primaryText} font-semibold text-lg md:text-2xl`}>Oliver & Emily&apos;s Wedding</span>
+          <nav
+            className={`flex gap-2 ${selectedTheme.styles.secondaryText} text-lg md:text-xl items-center my-6`}
+          >
+            <button className="flex items-center" onClick={handleNavigateBack}>
+              <Image
+                src={back}
+                alt="back-arrow"
+                width={20}
+                height={20}
+                className="transition-all duration-300 hover:scale-110"
+              />
+              <span className="cursor-pointer hover:underline transition-all">
+                Events /{" "}
+              </span>
+            </button>
+            <span
+              className={`${selectedTheme.styles.primaryText} font-semibold text-lg md:text-2xl`}
+            >
+              {event && event.name}
             </span>
           </nav>
 
           {/* Tabs */}
-          <ul className={`flex text-lg md:text-xl ${selectedTheme.styles.secondaryText} gap-4 my-6 pb-4 border-b-2 ${selectedTheme.styles.borderColor}`}>
+          <ul
+            className={`flex text-lg md:text-xl ${selectedTheme.styles.secondaryText} gap-4 my-6 pb-4 border-b-2 ${selectedTheme.styles.borderColor}`}
+          >
             {tabs.map((tab) => (
               <li
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`cursor-pointer pb-1 border-b-4 transition-all duration-300 hover:scale-105 ${activeTab === tab
-                  ? `${selectedTheme.styles.primaryText} border-current`
-                  : `${selectedTheme.styles.secondaryText} border-transparent hover:${selectedTheme.styles.primaryText}`
-                  }`}
+                className={`cursor-pointer pb-1 border-b-4 transition-all duration-300 hover:scale-105 ${
+                  activeTab === tab
+                    ? `${selectedTheme.styles.primaryText} border-current`
+                    : `${selectedTheme.styles.secondaryText} border-transparent hover:${selectedTheme.styles.primaryText}`
+                }`}
               >
                 {tab}
               </li>
             ))}
           </ul>
 
-          {/* Details Tab Content */}
-          {activeTab === "Details" && (
-            <main className="grid grid-cols-1 mdlg:grid-cols-1 lg:grid-cols-2 gap-6">
-
-              {/* Left Section */}
-              <section className="space-y-6">
-                {/* Event Banner */}
-                <div className="relative group">
-                  {banner ? (
-                    <Image
-                      src={banner}
-                      alt="Custom banner"
-                      className={`w-full rounded-2xl object-cover max-h-[400px] ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
-                      width={800}
-                      height={400}
-                    />
-                  ) : (
-                    <Image
-                      src={eventImage}
-                      alt="Default banner"
-                      className={`w-full rounded-2xl object-cover max-h-[400px] ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
-                      width={800}
-                      height={400}
-                    />
-                  )}
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className={`absolute bottom-4 left-4 ${selectedTheme.styles.cardBg} px-6 py-3 rounded-full text-base font-medium ${selectedTheme.styles.primaryText} ${selectedTheme.styles.shadowStyle} transition-all duration-300 hover:scale-105 backdrop-blur-sm`}
-                  >
-                    Edit background
-                  </button>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleBannerUpload}
-                    className="hidden"
-                  />
-                </div>
-
-                {/* Hosts Section */}
-                <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02]`}>
-                  <div className="flex flex-col mdlg:flex-col md:flex-row justify-between gap-4 pb-4 border-b-2 border-current/20">
-                    <div>
-                      <h1 className={`text-2xl ${selectedTheme.styles.primaryText} font-semibold`}>Hosts</h1>
-                      <p className={`${selectedTheme.styles.secondaryText} antialiased leading-relaxed`}>Add event manager to see your event through.</p>
-                    </div>
-                    <button className={`bg-gradient-to-r ${selectedTheme.styles.gradientFrom} ${selectedTheme.styles.gradientTo} text-white font-semibold text-lg py-3 px-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg`}>
-                      + Add host
-                    </button>
-                  </div>
-
-                  {/* Host List */}
-                  <div className="space-y-4 mt-4">
-                    {["Jerry Wilson (You)", "Groommail"].map((name, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex flex-col w-full md:flex-row gap-3  justify-between items-center p-4 rounded-xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02] hover:shadow-md bg-white/50`}
-                      >
-                        <div className="flex gap-3 items-center">
-                          <Image src={image} alt="host" width={40} height={40} className="rounded-full" />
-                          <div>
-                            <h2 className={`${selectedTheme.styles.primaryText} font-bold`}>{name}</h2>
-                            <p className={`${selectedTheme.styles.secondaryText} antialiased leading-relaxed`}>{name.toLowerCase().replace(" ", "")}@gmail.com</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3 items-center">
-                          <h2 className="text-[#2B2BCF] font-semibold">{idx === 0 ? "Creator" : "Manager"}</h2>
-                          <Image src={edit} alt="edit" height={20} width={20} className="cursor-pointer hover:scale-110 transition-transform" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Guests Section */}
-                <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300 hover:scale-[1.02]`}>
-                  <div className="flex flex-col md:flex-row gap-2 items-start md:items-center justify-between mb-4">
-                    <div>
-                      <h1 className={`text-2xl font-semibold ${selectedTheme.styles.primaryText}`}>Guests</h1>
-                      <p className={`text-base ${selectedTheme.styles.secondaryText}`}>Add event managers to see your event through</p>
-                    </div>
-                    <p className={`cursor-pointer ${selectedTheme.styles.secondaryText} hover:underline antialiased leading-relaxed`}>View all &gt;</p>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    {status.map((stat, index) => (
-                      <div key={index} className="flex flex-col gap-2 text-center">
-                        <p className={`antialiased leading-relaxed ${selectedTheme.styles.primaryText} text-2xl font-bold`}>{stat.value}</p>
-                        <h2 className={`${selectedTheme.styles.secondaryText} text-base`}>{stat.stat}</h2>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-
-              {/* Right Section */}
-              <section className="space-y-6">
-                {/* Event Title and Details */}
-                <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300  hover:scale-[1.02]`}>
-                  <h1 className={`text-3xl font-bold mb-4 ${selectedTheme.styles.primaryText}`}>Oliver & Emily&apos;s Wedding</h1>
-                  <div className={`space-y-3 text-base ${selectedTheme.styles.primaryText}`}>
-                    <div className="flex items-center gap-3">
-                      <Image src={location} alt="location" width={20} height={20} />
-                      <h2>The Grand Hall. Rosewood Estate</h2>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Image src={date} alt="date" width={20} height={20} />
-                      <h2>Sat, Aug 20</h2>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Image src={time} alt="time" width={20} height={20} />
-                      <h2>3:00 PM - 10:00 PM</h2>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="grid grid-cols-4 gap-4">
-                  {edits.map((edit, index) => (
-                    <div
-                      key={index}
-                      className={`flex flex-col items-center cursor-pointer ${selectedTheme.styles.primaryText} transition-all duration-300 hover:scale-110`}
-                      onClick={edit.tag === "Theme" ? () => setOpenTheme(true) : () => { }}
-                    >
-                      <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 hover:shadow-lg`}>
-                        <Image src={edit.imageUrl} alt={edit.tag} width={24} height={24} />
-                      </div>
-                      <h2 className="mt-2 text-base font-medium">{edit.tag}</h2>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Sitting Chart Section */}
-                <div className={`flex flex-col px-6 py-8 bg-gradient-to-br ${selectedTheme.styles.gradientFrom} ${selectedTheme.styles.gradientTo} items-center rounded-2xl text-white-base transition-all duration-300 hover:scale-[1.02] ${selectedTheme.styles.shadowStyle}`}>
-                  <div className="flex gap-2 items-center mb-2">
-                    <Image src={sitting} alt="sitting" width={20} height={20} />
-                    <h2 className="text-lg font-semibold">Create sitting chart</h2>
-                  </div>
-                  <p className="antialiased leading-relaxed text-center text-white/90">Assign seats to guests and notify them</p>
-                </div>
-
-                {/* About Section */}
-                <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300`}>
-                  <h1 className={`${selectedTheme.styles.primaryText} text-2xl font-semibold mb-4 pb-2 border-b ${selectedTheme.styles.borderColor}`}>About</h1>
-                  <p className={`antialiased leading-relaxed text-justify ${selectedTheme.styles.primaryText} leading-relaxed`}>
-                    {welcomeText}
-                  </p>
-                </div>
-
-                {/* Location Section */}
-                <div className={`${selectedTheme.styles.cardBg} ${selectedTheme.styles.shadowStyle} p-6 rounded-2xl border ${selectedTheme.styles.borderColor} transition-all duration-300`}>
-                  <h1 className={`${selectedTheme.styles.primaryText} text-2xl font-semibold mb-4 pb-2 border-b ${selectedTheme.styles.borderColor}`}>Location</h1>
-                  <h2 className={`${selectedTheme.styles.primaryText} font-semibold text-lg`}>The Grand Hall, Rosewood Estate</h2>
-                  <p className={`${selectedTheme.styles.secondaryText} mb-4`}>123 Broadway Avenue, NY 10001</p>
-                  <div className="relative group">
-                    <Image
-                      src={map}
-                      alt="map"
-                      className={`w-full h-40 object-cover rounded-xl ${selectedTheme.styles.shadowStyle} transition-all duration-300 group-hover:scale-[1.02]`}
-                      width={600}
-                      height={160}
-                    />
-                  </div>
-                </div>
-              </section>
-            </main>
-          )}
+          {/*  Tab Content */}
+          {renderTabContent()}
         </div>
       </div>
+
+      {/* Theme Selector Modal */}
+      {openTheme && (
+        <ThemeSelector
+          selectedTheme={selectedTheme}
+          setSelectedTheme={setSelectedTheme}
+          onClose={() => setOpenTheme(false)}
+        />
+      )}
 
       {/* Theme Selector Modal */}
       {openTheme && (

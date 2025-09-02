@@ -3,5 +3,5 @@ export interface HostedType {
   host: string;
   date: string | number;
   todo: number;
-  vanue: string;
+  venue: string;
 }

@@ -38,3 +38,34 @@ export interface Member {
 }
 
 export type User = Vendor | Host | Event;
+
+// types.ts
+export type EventOfficial = {
+  position: string;
+  name: string;
+  email: string;
+};
+
+export type GuestStatus = {
+  invited: number;
+  going: number;
+  pending: number;
+  notGoing: number;
+};
+export type EventStatuses = "past" | "upcoming" | "draft";
+
+export type EventDetails = {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  venue: string;
+  todo: number;
+  host: string;
+  image: string;
+  date: string;
+  time: string;
+  guest: GuestStatus;
+  officials: EventOfficial[];
+  eventType: EventStatuses;
+};

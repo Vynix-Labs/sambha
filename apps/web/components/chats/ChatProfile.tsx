@@ -4,7 +4,7 @@ import { modalAtom } from "../../store/modalAtom";
 import Image from "next/image";
 import { Switch } from "@sambha/ui/switch";
 import { RxCheck } from "react-icons/rx";
-import { User } from "../../types/chats/data";
+import { User } from "../../types/events/data";
 import { BsDot } from "react-icons/bs";
 import { formatFlexibleDate } from "../../utils/formatMessageDate";
 

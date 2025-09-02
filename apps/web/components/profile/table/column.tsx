@@ -1,9 +1,10 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
-import { HostedType } from "../../../types/profile/data";
 import { formatFlexibleDate } from "../../../utils/formatMessageDate";
+import Link from "next/link";
+import { FullEventsProps } from "types/events/dummyEvents";
 
-export const columns: ColumnDef<HostedType>[] = [
+export const columns: ColumnDef<FullEventsProps>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -15,6 +16,13 @@ export const columns: ColumnDef<HostedType>[] = [
   {
     accessorKey: "host",
     header: "Host",
+    cell: ({ row }) => {
+      return (
+        <p className="whitespace-nowrap font-semibold">
+          {row.original.host.name}
+        </p>
+      );
+    },
   },
 
   {
@@ -34,27 +42,47 @@ export const columns: ColumnDef<HostedType>[] = [
     },
   },
   {
-    accessorKey: "todo",
-    header: "To-do",
-  },
-  {
-    accessorKey: "vanue",
-    header: "Venue",
-  },
+  accessorKey: "todo",
+  header: "To-do",
+  cell: ({ row }) => {
+    const tasks = row.original.tasks ?? [];
+    const completedTask = tasks.filter((task) => task.status === "completed");
 
+    return (
+      <p className="whitespace-nowrap font-semibold">
+        {`${completedTask.length}/${tasks.length}`}
+      </p>
+    );
+  },
+},
+
+ {
+  accessorKey: "venue",
+  header: "Venue",
+  cell: ({ row }) => {
+    const venueName = row.original.venue?.name ?? "--";
+    return (
+      <p className="whitespace-nowrap font-semibold">
+        {venueName}
+      </p>
+    );
+  },
+},
   {
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
       const data = row.original;
+      const slug = data.name.replaceAll(" ", "_");
       return (
         <div className="flex items-center gap-4">
-          <button
+          <Link
+            href={`/event-planner/events/${slug}`}
             className="bg-gradientText bg-clip-text whitespace-nowrap text-transparent cursor-pointer text-primary-light"
             onClick={() => console.log(data)}
           >
             View Details
-          </button>
+          </Link>
         </div>
       );
     },

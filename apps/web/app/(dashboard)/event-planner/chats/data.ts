@@ -1,4 +1,4 @@
-import { User } from "../../../../types/chats/data";
+import { User } from "../../../../types/events/data";
 
 export const userData = {
   id: "me",

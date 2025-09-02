@@ -1,7 +1,7 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { getVendorById } from "../../../../../../lib/vendors";
 import { use } from "react";
 import { CheckCircle } from "lucide-react";
@@ -20,33 +20,33 @@ export default function VendorPage({
   const { vendorId } = use(params);
   const vendor = getVendorById(vendorId);
 
-  const [images, setImages] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [images, setImages] = useState<string[]>([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        setImages([
-          "/images/product1.jpg",
-          "/images/product2.jpg",
-          "/images/product3.jpg",
-          "/images/product4.jpg",
-        ]);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error loading images:", error);
-        setIsLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       await new Promise((resolve) => setTimeout(resolve, 500));
+  //       setImages([
+  //         "/images/product1.jpg",
+  //         "/images/product2.jpg",
+  //         "/images/product3.jpg",
+  //         "/images/product4.jpg",
+  //       ]);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error loading images:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-    fetchImages();
-  }, []);
+  //   fetchImages();
+  // }, []);
 
   if (!vendor) return notFound();
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-white max-w-7xl">
+    <div className="container mx-auto px-4 py-8">
       <Breadcrumbs
         items={[
           { href: "/event-planner/vendors", label: "Vendors" },
@@ -63,7 +63,7 @@ export default function VendorPage({
             mainImageHeight="h-64 sm:h-80 md:h-[450px]"
             thumbnailHeight="h-16 sm:h-20 md:h-24"
             thumbnailWidth="w-16 sm:w-20 md:w-24"
-            isLoading={isLoading}
+            // isLoading={isLoading}
             thumbnailCount={4}
           />
         </div>

@@ -5,7 +5,7 @@ import { useSetAtom } from "jotai";
 import { modalAtom } from "../../store/modalAtom";
 import Image from "next/image";
 import { RxCheck } from "react-icons/rx";
-import { User } from "../../types/chats/data";
+import { User } from "../../types/events/data";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 

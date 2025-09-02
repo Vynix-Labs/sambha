@@ -1,8 +1,8 @@
 import React from "react";
 
-import { HostedType } from "../../../types/profile/data";
 import { CustomTable } from "@sambha/ui/CustomTable";
 import { columns } from "./column";
+import { FullEventsProps } from "types/events/dummyEvents";
 
 export const ProfileTable = ({
   data,
@@ -12,7 +12,7 @@ export const ProfileTable = ({
   pageIndex,
   onPageChange,
 }: {
-  data: HostedType[];
+  data: FullEventsProps[];
   loading: boolean;
   totalPages?: number;
   pageSize?: number;

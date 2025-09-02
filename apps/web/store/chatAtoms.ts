@@ -3,7 +3,7 @@ import {
   allMessages,
   users,
 } from "../app/(dashboard)/event-planner/chats/data";
-import { Host, User } from "../types/chats/data";
+import { Host, User } from "../types/events/data";
 
 export interface Message {
   id: string;
