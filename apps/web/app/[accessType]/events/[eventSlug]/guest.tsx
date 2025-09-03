@@ -1,4 +1,4 @@
-import { FormInput } from "../../../../../../../packages/ui/src/form/FormInput";
+import { FormInput } from "../../../../../../packages/ui/src/form/FormInput";
 import { Search, X } from "lucide-react";
 import React, { useState } from "react";
 import { FullEventsProps } from "types/events/dummyEvents";

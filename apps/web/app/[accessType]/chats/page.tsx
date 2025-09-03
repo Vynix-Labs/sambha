@@ -1,7 +1,7 @@
 
 import { ChatLight } from "@sambha/ui/icons";
 import React from "react";
-import ChatSidebar from "../../../../components/chats/ChatSidebar";
+import ChatSidebar from "../../../components/chats/ChatSidebar";
 
 function HomePage() {
   return (

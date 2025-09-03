@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { CalendarIcon, MultiUserIcon } from "../../../../public/svg";
+import { CalendarIcon, MultiUserIcon } from "../../../public/svg";
 
 type Props = {
   title: string;

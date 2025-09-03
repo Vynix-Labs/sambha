@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { getVendorById } from "../../../../../../../lib/vendors";
+import { getVendorById } from "../../../../../../lib/vendors";
 // import BookNowClient from "../../../../../../../_components/event-planner/vendor/BookNowClient";
 import { ReactElement } from "react";
-import BookNowClient from "../../../../../../../components/event-planner/vendor/BookNowClient";
+import BookNowClient from "../../../../../../components/event-planner/vendor/BookNowClient";
 
 export default async function BookNowPage({
   params,

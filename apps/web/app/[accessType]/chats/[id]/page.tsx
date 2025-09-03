@@ -1,10 +1,10 @@
 import React from "react";
 
 import { users } from "../data";
-import MessageList from "../../../../../components/chats/MessageList";
-import { TextInput } from "../../../../../components/chats/TextInput";
+import MessageList from "../../../../components/chats/MessageList";
+import { TextInput } from "../../../../components/chats/TextInput";
 
-import { ChatHeader } from "../../../../../components/chats/ChatHeader";
+import { ChatHeader } from "../../../../components/chats/ChatHeader";
 
 interface MessageDetailsProps {
   params: Promise<{ id: string }>;

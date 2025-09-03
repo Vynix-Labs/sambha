@@ -1,33 +1,30 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useAtom, useSetAtom } from "jotai";
-import { FormInput } from "@sambha/ui/form/FormInput";
-import { Select } from "@sambha/ui/form/select";
-import { FormToggle } from "@sambha/ui/form/FormToggle";
 import { Button } from "@sambha/ui/button";
+import { FormInput } from "@sambha/ui/form/FormInput";
+import { FormToggle } from "@sambha/ui/form/FormToggle";
 import { LocationSearch } from "@sambha/ui/form/LocationSearch";
+import { Select } from "@sambha/ui/form/select";
+import { useAtom, useSetAtom } from "jotai";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   StepperAtom,
   eventFormAtom,
   handleNextStepAtom,
   handlePreviousStepAtom,
   updateEventFormAtom,
-} from "../../../../../../../packages/store/eventsAtom";
+} from "../../../../../../packages/store/eventsAtom";
 
+import FormError from "@sambha/ui/form/FormError";
+import Image from "next/image";
 import {
   AddBackgroundIcon,
-  BtcIcon,
   ChevronDown,
   ChevronLeft,
-  NigeriaIcon,
-} from "../../../../../public/svg";
-import Image from "next/image";
-import MapImage from "../../../../../public/map.png";
+} from "../../../../public/svg";
 import EventBudget from "./EventBudget";
-import { TaskList } from "./TaskList";
 import { InviteGuest } from "./InviteGuest";
-import FormError from "@sambha/ui/form/FormError";
+import { TaskList } from "./TaskList";
 
 const eventTypes = [
   { label: "Conference", value: "conference" },
@@ -42,8 +39,6 @@ const steps = [
   { title: "Step 3", subtitle: "Edit task list" },
   { title: "Step 4", subtitle: "Invite guests" },
 ];
-
-
 
 interface ValidationErrors {
   eventName?: string;
@@ -461,7 +456,7 @@ const CreateEvent: React.FC<CreateEventProps> = ({
 
               <div className="space-y-2">
                 <div
-                  style={{ backgroundImage: `url(${MapImage.src})` }}
+                  style={{ backgroundImage: `url('/map.png')` }}
                   className="p-6 border border-[#E4E7EC] rounded-lg bg-cover bg-center h-64 w-full relative"
                 >
                   <LocationSearch onLocationSelect={handleLocationUpdate} />

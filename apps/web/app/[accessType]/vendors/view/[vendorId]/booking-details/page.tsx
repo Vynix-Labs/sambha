@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getVendorById } from "../../../../../../../lib/vendors";
+import { getVendorById } from "../../../../../../lib/vendors";
 import { ReactElement } from "react";
-import { BookingDetailsClient } from "../../../../../../../components/event-planner/vendor/BookingDetailsClient";
+import { BookingDetailsClient } from "../../../../../../components/event-planner/vendor/BookingDetailsClient";
 
 export default async function BookingDetailsPage({
   params,

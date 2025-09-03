@@ -1,9 +1,9 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { getVendorById } from "../../../../../../../lib/vendors";
-import { Breadcrumbs } from "../../../../../../../components/event-planner/vendor/Breadcrumbs";
-import { OfferStatusView } from "../../../../../../../components/event-planner/vendor/OfferStatusView";
+import { getVendorById } from "../../../../../../lib/vendors";
+import { Breadcrumbs } from "../../../../../../components/event-planner/vendor/Breadcrumbs";
+import { OfferStatusView } from "../../../../../../components/event-planner/vendor/OfferStatusView";
 // import { Breadcrumbs } from "../../../../../../../_components/event-planner/vendor/Breadcrumbs";
 // import { OfferStatusView } from "../../../../../../../_components/event-planner/vendor/OfferStatusView";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ChatSidebar from "../../../../components/chats/ChatSidebar";
+import ChatSidebar from "../../../components/chats/ChatSidebar";
 import { usePathname } from "next/navigation";
 
 export default function ChatLayout({

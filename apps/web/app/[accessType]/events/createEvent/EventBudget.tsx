@@ -1,8 +1,8 @@
 import React from "react";
-import { FormCheckBox } from "../../../../../../../packages/ui/src/form/FormCheckbox";
-import { FormInput } from "../../../../../../../packages/ui/src/form/FormInput";
-import { BtcIcon, ExchangeIcon, NigeriaIcon } from "../../../../../public/svg";
-import { FormInputWithSelect } from "../../../../../../../packages/ui/src/form/FormInputWithSelect";
+import { FormCheckBox } from "../../../../../../packages/ui/src/form/FormCheckbox";
+import { FormInput } from "../../../../../../packages/ui/src/form/FormInput";
+import { BtcIcon, ExchangeIcon, NigeriaIcon } from "../../../../public/svg";
+import { FormInputWithSelect } from "../../../../../../packages/ui/src/form/FormInputWithSelect";
 
 const currencyOptions = [
   { value: "ngn", label: "NGN", icon: <NigeriaIcon /> },

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactElement } from "react";
+import React from "react";
 
 import {
   SidebarProvider,
@@ -18,33 +18,34 @@ import {
 } from "@sambha/ui/icons";
 import { Input } from "@sambha/ui/input";
 import SambhaSidebar from "@sambha/ui/layout/sidebar";
+import { getKeyByValue } from "lib/fns";
+import { UserType } from "lib/utils";
 import { Bell } from "lucide-react";
-import { ReactNode } from "react";
 
 const guestSidebarItems = [
-  { icon: <EventIcon1 />, label: "Events", url: "/guest/events" },
-  { icon: <PassIcon />, label: "Pass", url: "/guest/pass" },
-  { icon: <Chats />, label: "Chats", url: "/guest/chats" },
+  { icon: <EventIcon1 />, label: "Events", url: "/events" },
+  { icon: <PassIcon />, label: "Pass", url: "/pass" },
+  { icon: <Chats />, label: "Chats", url: "/chats" },
 ];
 
 const eventPlannerSidebarItems = [
-  { icon: <EventIcon1 />, label: "Events", url: "/event-planner/events" },
-  { icon: <VendorIcon />, label: "Vendors", url: "/event-planner/vendors" },
-  { icon: <Chats />, label: "Messages", url: "/event-planner/chats" },
+  { icon: <EventIcon1 />, label: "Events", url: "/events" },
+  { icon: <VendorIcon />, label: "Vendors", url: "/vendors" },
+  { icon: <Chats />, label: "Messages", url: "/chats" },
 ];
 const vendorSidebarItems = [
-  { icon: <HomeIcon />, label: "Home", url: "/vendor/" },
-  { icon: <EventIcon1 />, label: "Bookings", url: "/vendor/bookings" },
-  { icon: <Chats />, label: "Chats", url: "/vendor/chats" },
+  { icon: <HomeIcon />, label: "Home", url: "/" },
+  { icon: <EventIcon1 />, label: "Bookings", url: "/bookings" },
+  { icon: <Chats />, label: "Chats", url: "/chats" },
   {
     icon: <EarningIcon />,
     label: "Earnings",
-    url: "/vendor/earnings",
+    url: "/earnings",
   },
 ];
 
-export type SidebarItem = {
-  icon: ReactElement; // More specific than ReactNode
+export type UrlSidebarItem = {
+  icon: React.ReactNode; // Changed from ReactElement to ReactNode
   label: string;
   url: string;
 };
@@ -52,26 +53,41 @@ export type SidebarItem = {
 export type SidebarProviderProps = {
   children: React.ReactNode;
 };
+const session = {
+  user: {
+    role: "planner",
+  },
+};
+export default function WrapperLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const role = session?.user?.role
+    ? getKeyByValue(UserType, session.user.role)
+    : undefined;
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const role: string = "event-planner"; // or get from your auth logic
-
-  let sidebarItems: { icon: ReactNode; label: string; url: string }[] = [];
-  if (role === "event-planner") {
-    sidebarItems = eventPlannerSidebarItems;
-  } else if (role === "vendor") {
-    sidebarItems = vendorSidebarItems;
-  } else {
-    sidebarItems = guestSidebarItems;
-  }
-
+  const currentSidebarItems = role
+    ? role === "guest"
+      ? guestSidebarItems
+      : role === "planner"
+        ? eventPlannerSidebarItems
+        : role === "vendor"
+          ? vendorSidebarItems
+          : []
+    : [];
   return (
     <SidebarProvider>
       <div className="h-screen flex-row py-4 flex w-full">
-        <SambhaSidebar sidebarItems={sidebarItems} />
+        <SambhaSidebar
+          role={role as string}
+          sidebarItems={currentSidebarItems}
+        />
         <main className="flex-1 relative w-full overflow-auto no-scrollbar">
           <div className="absolute -top-1 right-0 w-max flex items-center">
-            <SidebarTrigger >{children}</SidebarTrigger>
+            <SidebarTrigger>
+              <div>{children}</div>
+            </SidebarTrigger>
           </div>
 
           <MainContent>{children}</MainContent>

@@ -1,9 +1,8 @@
 "use client";
 
-import { notFound } from "next/navigation";
 import { useMemo, useState, useEffect } from "react";
-import { vendors } from "../../../../../../lib/vendors";
-import { CategorySection } from "../../../../../../components/event-planner/vendor/CategorySection/CategorySection";
+import { vendors } from "../../../../../lib/vendors";
+import { CategorySection } from "../../../../../components/event-planner/vendor/CategorySection/CategorySection";
 
 interface CategoryPageProps {
   params: {
@@ -20,7 +19,6 @@ export default function CategoryPage({
   const [isLoading, setIsLoading] = useState(true);
   const [vendorsData, setVendorsData] = useState<any[]>([]);
 
-  // Safe access to params (future-proof)
   const category = params?.category || "";
 
   const categoryName = useMemo(() => {
@@ -57,10 +55,6 @@ export default function CategoryPage({
 
     fetchData();
   }, [category]);
-
-  if (!isLoading && filteredVendors.length === 0) {
-    return notFound();
-  }
 
   return (
     <CategorySection

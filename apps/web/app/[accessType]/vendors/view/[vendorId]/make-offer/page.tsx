@@ -2,9 +2,9 @@
 
 import { notFound } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { getVendorById } from "../../../../../../../lib/vendors";
-import { Breadcrumbs } from "../../../../../../../components/event-planner/vendor/Breadcrumbs";
-import { MakeOfferForm } from "../../../../../../../components/event-planner/vendor/vendorView/MakeOfferForm";
+import { getVendorById } from "../../../../../../lib/vendors";
+import { Breadcrumbs } from "../../../../../../components/event-planner/vendor/Breadcrumbs";
+import { MakeOfferForm } from "../../../../../../components/event-planner/vendor/vendorView/MakeOfferForm";
 
 export default function MakeOfferPage({
   params,
