@@ -125,7 +125,7 @@ const SambhaSidebar = ({
                 : "hover:bg-primary-light/10",
               "flex items-center p-3 rounded-full cursor-pointer w-full gap-4"
             )}
-            onClick={() => router.push(`${role}/settings`)}
+            onClick={() => router.push(`/${role}/settings`)}
           >
             {isSettingsActive ? <SettingsGradient /> : <Settings />}
 
