@@ -30,9 +30,9 @@ export default function OfferStatusPage({
     <div className="container mx-auto px-4 py-8 bg-white h-screen">
       <Breadcrumbs
         items={[
-          { href: "/event-planner/vendors", label: "Vendors" },
+          { href: "/vendor/vendors", label: "Vendors" },
           {
-            href: `/event-planner/vendors/view/${vendor.id}`,
+            href: `/vendor/vendors/view/${vendor.id}`,
             label: vendor.name,
           },
           { label: "Offer status", isCurrent: true },

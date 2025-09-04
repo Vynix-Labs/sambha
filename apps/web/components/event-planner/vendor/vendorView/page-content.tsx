@@ -3,15 +3,17 @@
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { Breadcrumbs } from "../../../../components/event-planner/vendor/Breadcrumbs";
-import { ImageGallery } from "../../../../components/event-planner/vendor/ImageGallery";
-import { VendorHeader } from "../../../../components/event-planner/vendor/vendorView/VendorHeader";
+// import { ImageGallery } from "../../../../componentsvendor/vendor/ImageGallery";
+// import { VendorHeader } from "../../../../componentsvendor/vendor/vendorView/VendorHeader";
 import { VendorActions } from "../../../../components/event-planner/vendor/vendorView/VendorActions";
 import { VendorReviews } from "../../../../components/event-planner/vendor/vendorView/VendorReviews";
-import { VendorDetails } from "../../../../components/event-planner/vendor/vendorView/VendorDetails";
+// import { VendorDetails } from "../../../../componentsvendor/vendor/vendorView/VendorDetails";
 import { MapEmbed } from "components/map/MapEmbed";
 import { useReviews } from "components/event-planner/vendor/vendorView/ReviewsContext";
 import { Vendor } from "../../../../types/vendor";
-
+import { VendorDetails } from "./VendorDetails";
+import { ImageGallery } from "components/vendor/ImageGallery";
+import { VendorHeader } from "./VendorHeader";
 
 type BookingStatus = "pending" | "confirmed" | "add-milestone" | "add-review";
 
@@ -27,7 +29,7 @@ export function VendorPageContent({ vendor }: VendorPageContentProps) {
     <div className="container mx-auto px-4 py-8">
       <Breadcrumbs
         items={[
-          { href: "/event-planner/vendors", label: "Vendors" },
+          { href: "/vendor/vendors", label: "Vendors" },
           { label: vendor.name, isCurrent: true },
         ]}
       />

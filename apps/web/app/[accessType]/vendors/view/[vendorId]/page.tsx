@@ -1,6 +1,7 @@
 import { getVendorById } from "lib/vendors";
 import { notFound } from "next/navigation";
 import { VendorPageContent } from "components/event-planner/vendor/vendorView/page-content";
+import { ReviewsProvider } from "components/event-planner/vendor/vendorView/ReviewsContext";
 
 export default async function VendorPage({
   params,
@@ -16,5 +17,8 @@ export default async function VendorPage({
     images: vendor.images.filter((img) => img),
   };
 
-  return <VendorPageContent vendor={validatedVendor} />;
-}
+ return (
+   <ReviewsProvider>
+     <VendorPageContent vendor={validatedVendor} />
+   </ReviewsProvider>
+ );}

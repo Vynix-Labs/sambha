@@ -88,7 +88,7 @@ export function VendorReviews({
           onClick={() => {
             onAddReview(); // Call any existing handler
             router.push(
-              `/event-planner/vendors/view/${vendor.id}/booking-details?add-review=true`
+              `/vendor/vendors/view/${vendor.id}/booking-details?add-review=true`
             );
           }}
           className="text-sm text-[#6946e2] font-medium hover:underline"
@@ -251,7 +251,7 @@ export function VendorReviews({
             onClick={() => {
               onAddReview(); // Call any existing handler
               router.push(
-                `/event-planner/vendors/view/${vendor.id}/booking-details?add-review=true`
+                `/vendor/vendors/view/${vendor.id}/booking-details?add-review=true`
               );
             }}
             className="text-sm text-[#6946e2] font-medium hover:underline"

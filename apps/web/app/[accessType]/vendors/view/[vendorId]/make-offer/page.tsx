@@ -51,16 +51,16 @@ export default function MakeOfferPage({
       throw new Error("Please enter a valid offer amount");
     }
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push(`/event-planner/vendors/view/${vendor.id}/offer-status`);
+    router.push(`/vendor/vendors/view/${vendor.id}/offer-status`);
   };
 
   return (
     <div className="container mx-auto px-4 py-8 bg-white">
       <Breadcrumbs
         items={[
-          { href: "/event-planner/vendors", label: "Vendors" },
+          { href: "/vendor/vendors", label: "Vendors" },
           {
-            href: `/event-planner/vendors/view/${vendor.id}`,
+            href: `/vendor/vendors/view/${vendor.id}`,
             label: vendor.name,
           },
           { label: "Make an offer", isCurrent: true },

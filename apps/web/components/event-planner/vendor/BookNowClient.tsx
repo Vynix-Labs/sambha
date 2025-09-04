@@ -27,7 +27,7 @@ export default function BookNowClient({
 
   const handlePayment = () => {
     if (vendor) {
-      router.push(`/event-planner/vendors/view/${vendor.id}/booking-details`);
+      router.push(`/vendor/vendors/view/${vendor.id}/booking-details`);
     }
   };
 
@@ -47,9 +47,9 @@ export default function BookNowClient({
       {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { href: "/event-planner/vendors", label: "Vendors" },
+          { href: "/vendor/vendors", label: "Vendors" },
           {
-            href: `/event-planner/vendors/view/${vendor.id}`,
+            href: `/vendor/vendors/view/${vendor.id}`,
             label: vendor.name,
           },
           { label: "Book now", isCurrent: true },
@@ -317,11 +317,8 @@ export default function BookNowClient({
               </div> */}
             </div>
 
-            <Button
-              onClick={handlePayment}
-              className="w-full"
-            >
-                Pay ${vendor.pricePerDay * bookingDetails.days}
+            <Button onClick={handlePayment} className="w-full">
+              Pay ${vendor.pricePerDay * bookingDetails.days}
             </Button>
           </div>
         </div>
