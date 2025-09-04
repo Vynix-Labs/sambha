@@ -40,7 +40,7 @@ export default function ProfilePage() {
           <Button
             className="max-md:w-full border-neutral-violet"
             variant="outline"
-            onClick={() => router.push("/guest/profile/settings")}
+            onClick={() => router.push("/guest/guests/profile/settings")}
           >
             <span className=" bg-gradientText bg-clip-text text-transparent font-medium">
               Profile Settings

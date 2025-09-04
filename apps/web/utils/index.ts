@@ -17,7 +17,7 @@ export const getTableDimensions = (
       return { width: 120, height: 40 };
     case "round":
       return { width: 80, height: 80 };
-    case "square":
+    case "rectangle":
       return { width: 80, height: 80 };
     default:
       return { width: 80, height: 80 };
