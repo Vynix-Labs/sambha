@@ -1,6 +1,6 @@
 import React from "react";
-import { ViewButton } from "../../app/(dashboard)/event-planner/events/[eventSlug]/Details";
 import { SearchFilter } from "./GuestSelector";
+import { ViewButton } from "app/[accessType]/events/[eventSlug]/Details";
 
 type TableItemsProps = {
   onSelectTable: (type: "round" | "rectangle" | "long") => void;

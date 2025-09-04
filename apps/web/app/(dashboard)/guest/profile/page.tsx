@@ -2,7 +2,7 @@
 
 import { Button } from "@sambha/ui/button";
 import { PlaceHolder } from "@sambha/ui/icons";
-import { userData } from "app/(dashboard)/event-planner/chats/data";
+import { userData } from "app/[accessType]/chats/data";
 import ProfileAboutCalendar from "components/profile/ProfileAboutCalendar";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
