@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: "Fractul";
   src: url("/fonts/Fractul-Light.woff2") format("woff2");
@@ -57,9 +56,3 @@ body {
 .thin-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
-
-
-
-
-
-

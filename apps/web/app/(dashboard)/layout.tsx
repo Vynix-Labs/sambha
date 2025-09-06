@@ -71,7 +71,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SambhaSidebar sidebarItems={sidebarItems} />
         <main className="flex-1 relative w-full overflow-auto no-scrollbar">
           <div className="absolute -top-1 right-0 w-max flex items-center">
-            <SidebarTrigger />
+            <SidebarTrigger >{children}</SidebarTrigger>
           </div>
 
           <MainContent>{children}</MainContent>
