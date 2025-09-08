@@ -58,7 +58,6 @@ export interface Booking {
   paymentMethod?: string; // Added
   specialRequests?: string; // Added
 }
-
 export interface Milestone {
   id: string;
   name: string;
