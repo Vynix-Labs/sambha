@@ -4,6 +4,7 @@ import React from "react";
 import EventTabs from "components/event-sittings/EventTab";
 import Bookings from "components/bookings/NewBookings";
 import { useState } from "react";
+import { Input } from "@sambha/ui/input";
 
 export default function BookingsPage() {
   const [activeTab, setActiveTab] = useState("Details");
@@ -46,11 +47,11 @@ export default function BookingsPage() {
                   />
                 </svg>
               </div>
-              <input
+              <Input
                 // value={query}
                 // onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search"
-                className="md:w-[400px] pl-10 pr-3 py-2 rounded-lg focus:outline-none bg-gray-100"
+                className="max-w-[400px]  bg-[#EBECEE] pl-10 pr-3 py-2 rounded-2xl focus:outline-none "
                 // style={{ background: BRAND.neutral }}
               />
             </div>
