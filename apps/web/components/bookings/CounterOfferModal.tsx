@@ -1,88 +1,13 @@
-// "use client";
-
-// import React, { useState } from "react";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogHeader,
-//   DialogTitle,
-// } from "@sambha/ui/dialog";
-// import { Input } from "@sambha/ui/input";
-// import { Button } from "@sambha/ui/button";
-
-// interface CounterOfferModalProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   onSubmit: (amount: number, message: string) => void;
-// }
-
-// const CounterOfferModal: React.FC<CounterOfferModalProps> = ({
-//   isOpen,
-//   onClose,
-//   onSubmit,
-// }) => {
-//   const [amount, setAmount] = useState("");
-//   const [message, setMessage] = useState("");
-
-//   const handleSubmit = () => {
-//     if (!amount) return;
-//     onSubmit(Number(amount), message);
-//     onClose();
-//   };
-
-//   return (
-//     <Dialog open={isOpen} onOpenChange={onClose}>
-//       <DialogContent className="max-w-md">
-//         <DialogHeader>
-//           <DialogTitle>Send Counter Offer</DialogTitle>
-//         </DialogHeader>
-//         <div className="flex flex-col gap-4">
-//           <Input
-//             type="number"
-//             placeholder="Enter offer amount ($)"
-//             value={amount}
-//             onChange={(e) => setAmount(e.target.value)}
-//           />
-//           <textarea
-//             placeholder="Write a message..."
-//             value={message}
-//             onChange={(e) => setMessage(e.target.value)}
-//             className="w-full border rounded-md p-2 text-sm"
-//           />
-//           <Button onClick={handleSubmit} className="bg-[#2A1D52] text-white">
-//             Send Offer
-//           </Button>
-//         </div>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// };
-
-// export default CounterOfferModal;
 import React from "react";
 import { Modal } from "components/Modal";
-// import { Dialog } from "@sambha/ui/dialog";
-import { useState } from "react";
 import { ArrowDown } from "lucide-react";
 
-const CounterOfferModal: React.FC = ({}) => {
-  const [amount, setAmount] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = () => {
-    console.log("Counter offer submitted:", amount, message);
-    // TODO: push to offer-sent page if needed
-  };
-
+const CounterOfferModal: React.FC = () => {
   return (
     <Modal title="Counter Offer">
       {" "}
       <div className="space-y-4">
         {" "}
-        {/* <h1 className="text-[#2A1D52] text-xl font-semibold">
-          {" "}
-          Counter Offer{" "}
-        </h1>{" "} */}
         <h2 className="text-[#2A1D52] text-lg font-medium">
           {" "}
           Your offer amount{" "}

@@ -1,25 +1,24 @@
 "use client";
 
 import Image from "next/image";
-// import Link from "next/link";
 import React from "react";
 import avatar from "../../../../../assets/images/Image.png";
-// import check from "../../../../assets/images/check.svg";
-import checkgreen from "../../../../../assets/images/check-green.svg";
+import check from "../../../../../assets/images/check.svg";
 import gradient from "../../../../../assets/images/gradient.png";
 import BookingHeader from "components/bookings/BookingHeader";
+import router from "next/router";
 
-export default function OfferSentPage() {
+export default function OfferAcceptedPage() {
   const bookings = {
     id: "ab12",
     slug: "racoon-musicals",
     name: "Racoon Musicals",
   };
 
-  // const acceptOffer = () => {
-  //   console.log("Offer accepted!");
-  //   // router.push("/bookings/.../milestones") if needed
-  // };
+  const acceptOffer = () => {
+    console.log("Offer accepted!");
+    router.push("/bookings/racoon-musicals/offer-accepted");
+  };
 
   return (
     <div className="flex flex-col gap-2 pt-4">
@@ -29,42 +28,31 @@ export default function OfferSentPage() {
         <div className="max-w-[500px] flex flex-col gap-4">
           {/* Event Header */}
           <div className="flex gap-4">
-            <Image src={avatar} alt="avatar" className="rounded-lg" />
+            <Image
+              src={avatar}
+              alt="avatar"
+              className="rounded-lg items-start"
+            />
             <div className="text-[#2A1D52] flex flex-col gap-2">
               <h1 className="text-[24px] font-semibold">{bookings.name}</h1>
               <h2 className="text-[#101928] text-[20px]">
                 Grand Maple Theatre
               </h2>
-              <div className="flex items-center gap-2">
-                <Image
-                  src={gradient}
-                  alt="gradient"
-                  width={20}
-                  className="h-5"
-                />
+
+              <div className="flex gap-2">
+                <Image src={gradient} alt="gradient" width={20} height={5} />
                 <p className="text-[14px]">Hosted by Sonia Paul</p>
               </div>
             </div>
           </div>
 
           {/* Offer Sent */}
-          {/* <div className="bg-[#F7EBFF] text-[#070D17] mt-4 p-4 rounded-lg flex gap-4">
-          <Image src={check} alt="check icon" />
-          <div className="flex flex-col gap-2">
-            <h2 className="font-semibold">Offer sent</h2>
-            <p>Awaiting client’s response</p>
-            <p>Sent on April 24, 2025</p>
-          </div>
-        </div> */}
-
-          {/* Offer Accepted */}
-          <div className="bg-[#F2FFF7] text-[#070D17] mt-4 p-4 rounded-lg flex gap-4 items-start">
-            <Image src={checkgreen} alt="check icon" />
+          <div className="bg-[#F7EBFF] text-[#070D17] mt-4 p-4 rounded-lg flex gap-4 items-start">
+            <Image src={check} alt="check icon" />
             <div className="flex flex-col gap-2">
-              <h2 className="font-semibold">Offer Accepted</h2>
-              <p>
-                The client has accepted your offer. Accept booking to continue.
-              </p>
+              <h2 className="font-semibold">Offer sent</h2>
+              <p>Awaiting client’s response</p>
+              <p>Sent on April 24, 2025</p>
             </div>
           </div>
 
@@ -129,13 +117,14 @@ export default function OfferSentPage() {
 
         {/* Right Side - Buttons */}
         <div className="flex flex-col gap-3">
-          <button className="border-purple-500 border-2 bg-white w-[250px] rounded-3xl px-4 py-3">
-            <span className="bg-gradient-to-b from-[#C96FFF] to-[#2B2BCF] bg-clip-text text-transparent">
-              Counter Offer Sent
-            </span>
+          <button
+            className="bg-gradient-to-b from-[#C96FFF] to-[#2B2BCF] text-[#FFFFFF] w-[250px] rounded-3xl px-4 py-3"
+            onClick={acceptOffer}
+          >
+            Accept Booking
           </button>
-          <button className="text-red-500 w-[250px] rounded-3xl px-4 py-3">
-            Reject Offer
+          <button className="text-red-500 w-[250px] rounded-3xl px-4 py-3 bg-[#FFFFFF]">
+            Reject
           </button>
         </div>
       </div>

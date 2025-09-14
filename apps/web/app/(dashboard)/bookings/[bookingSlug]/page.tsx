@@ -1,8 +1,6 @@
-// app/bookings/[slug]/page.tsx
 "use client";
 
-import React, { useState } from "react";
-// import Link from "next/link";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Booking } from "../../../../types/booking";
@@ -13,8 +11,6 @@ import { useSetAtom } from "jotai";
 import { modalAtom } from "../../../../store/modalAtom";
 import gradient from "../../../../assets/images/gradient.png";
 import BookingHeader from "components/bookings/BookingHeader";
-
-// import PaymentModal from "components/bookings/PaymentModal";
 
 const DUMMY_BOOKING: Booking = {
   id: "ab12",
@@ -49,14 +45,6 @@ export default function BookingDetailsPage() {
   const booking = DUMMY_BOOKING;
   const setModal = useSetAtom(modalAtom);
 
-  const [showCounter, setShowCounter] = useState(false);
-
-  // const [isPaymentOpen, setPaymentOpen] = useState(false);
-
-  // const handlePayment = (amount: number) => {
-  //   console.log("Payment made:", amount);
-  //   // TODO: API call
-  // };
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
       <BookingHeader />
@@ -131,7 +119,7 @@ export default function BookingDetailsPage() {
             onClick={() =>
               setModal({
                 isOpen: true,
-                size: "md", // or "lg" if needed
+                size: "md",
                 type: "Counter Offer",
               })
             }
@@ -143,20 +131,6 @@ export default function BookingDetailsPage() {
           <button className="text-red-600">Reject offer</button>
         </aside>
       </div>
-      {/* <PaymentModal
-        isOpen={isPaymentOpen}
-        onClose={() => setPaymentOpen(false)}
-        onPay={handlePayment}
-      /> */}
-      {/* {showCounter && (
-        <CounterOfferModal
-          isOpen={showCounter}
-          onClose={() => setShowCounter(false)}
-          onSubmit={() => {
-            router.push(`/bookings/${booking.slug}/offer-sent`);
-          }}
-        />
-      )} */}
       <CounterOfferModal />
     </div>
   );

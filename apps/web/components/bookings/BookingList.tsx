@@ -1,4 +1,3 @@
-// components/bookings/BookingList.tsx
 "use client";
 
 import React from "react";

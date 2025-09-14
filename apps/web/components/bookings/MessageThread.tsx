@@ -1,4 +1,3 @@
-// components/bookings/MessageThread.tsx
 "use client";
 
 import React, { useState } from "react";

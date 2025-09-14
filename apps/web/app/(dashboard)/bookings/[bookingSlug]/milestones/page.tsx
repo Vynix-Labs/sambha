@@ -1,13 +1,10 @@
-// app/bookings/[slug]/milestones/page.tsx
 "use client";
 
 import React from "react";
-// import Link from "next/link";
 import Image from "next/image";
 import { Milestone, Booking } from "../../../../../types/booking";
 // import MessageThread from "../../../../../components/bookings/MessageThread";
 import avatar from "../../../../../assets/images/Image.png";
-// import date from "../../../../../assets/images/date-1.png"
 import date1 from "../../../../../assets/images/date-1.png";
 import date2 from "../../../../../assets/images/date-2.png";
 import date3 from "../../../../../assets/images/date-3.png";
@@ -65,7 +62,6 @@ const DUMMY: Booking = {
 
 export default function MilestonesPage() {
   const booking = DUMMY;
-  // const [showPayment, setShowPayment] = useState(false);
   const setModal = useSetAtom(modalAtom);
 
   return (
@@ -163,12 +159,6 @@ export default function MilestonesPage() {
                 <div className="mt-1">${booking.total}</div>
               </div>
             </div>
-
-            {/* <p className="mt-4 text-sm text-gray-700">
-              Hello, I want to rent your space for an event and I have created a
-              couple of milestones that should be achieved so I can release
-              payment.
-            </p> */}
           </div>
         </div>
 
@@ -188,15 +178,6 @@ export default function MilestonesPage() {
       </div>
 
       {/* <MessageThread initial={booking.messages} /> */}
-
-      {/* Payment modal */}
-      {/* {showPayment && (
-        <PaymentModal
-          isOpen={showPayment}
-          onClose={() => setShowPayment(false)}
-          onPay={() => setShowPayment(false)}
-        />
-      )} */}
       <PaymentModal />
     </div>
   );
