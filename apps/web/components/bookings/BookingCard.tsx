@@ -1,55 +1,48 @@
+// components/bookings/BookingCard.tsx
 "use client";
 
 import React from "react";
-import { Calendar } from "lucide-react";
-import ClockIcon from "components/icons/ClockIcon";
-import { BsPerson } from "react-icons/bs";
 import Link from "next/link";
-
-export type Booking = {
-  id: string;
-  slug: string;
-  name: string;
-  pricePerDay: number;
-  dateRange: string;
-  time: string;
-  guests: number;
-  createdAt: string; // e.g. "20 minutes ago"
-  summary: string;
-};
+import { Calendar } from "lucide-react";
+import { BsPerson } from "react-icons/bs";
+import ClockIcon from "components/icons/ClockIcon";
+import { Booking } from "../../types/booking";
 
 const BookingCard: React.FC<{ booking: Booking }> = ({ booking }) => {
   return (
-    <div className="max-w-[400px] flex flex-col gap-2 p-4 rounded-lg border border-gray-200 shadow-sm bg-white">
-      <p className="text-gray-400 text-sm">{booking.createdAt}</p>
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+      <p className="text-sm text-[#98A2B3]">{booking.createdAt}</p>
+
       <Link
         href={`/bookings/${booking.slug}`}
-        className="text-[#2A1D52] text-lg font-semibold hover:underline"
+        className="block mt-2 text-[#2A1D52] text-lg font-semibold hover:underline"
       >
-        {booking.name} {">"}
+        {booking.name} <span className="text-gray-400">›</span>
       </Link>
-      <h2 className="text-[#C96FFF] text-md font-medium">
-        ${booking.pricePerDay} per day
-      </h2>
-      <p className="text-gray-700 text-sm">
-        {booking.summary}{" "}
-        <span className="text-[#C96FFF] font-medium cursor-pointer">
-          ... more
-        </span>
+
+      <div className="mt-2">
+        <div className="text-[#C96FFF] font-medium">
+          ${booking.pricePerDay} per day
+        </div>
+      </div>
+
+      <p className="mt-3 text-gray-700">
+        {booking.snippet} <span className="text-[#C96FFF]">... more</span>
       </p>
-      <div className="flex items-center justify-between text-sm text-[#2A1D52]">
-        <p className="flex gap-1 items-center">
-          <Calendar className="h-4 w-4" />
-          {booking.dateRange}
-        </p>
-        <p className="flex gap-1 items-center">
+
+      <div className="mt-4 flex gap-6 text-sm text-[#2A1D52]">
+        <div className="flex items-center gap-2">
+          <Calendar size={16} />
+          <span>{booking.dateRange}</span>
+        </div>
+        <div className="flex items-center gap-2">
           <ClockIcon />
-          {booking.time}
-        </p>
-        <p className="flex gap-1 items-center">
+          <span>12:00 PM</span>
+        </div>
+        <div className="flex items-center gap-2">
           <BsPerson />
-          {booking.guests} guests
-        </p>
+          <span>{booking.guests} guests</span>
+        </div>
       </div>
     </div>
   );

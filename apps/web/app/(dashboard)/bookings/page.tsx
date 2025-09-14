@@ -1,37 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import EventTabs from "components/event-sittings/EventTab";
-import BookingList from "../../../components/bookings/BookingDetails/BookingList";
+import BookingList from "../../../components/bookings/BookingList";
 import { Input } from "@sambha/ui/input";
 
 export default function BookingsPage() {
-  const [activeTab, setActiveTab] = useState("New");
+  const [activeTab, setActiveTab] = useState<"New" | "Offers" | "Rejected">(
+    "New"
+  );
+  const [query, setQuery] = useState("");
 
   const renderContent = () => {
     switch (activeTab) {
       case "New":
-        return <BookingList />;
+        return <BookingList query={query} />;
       case "Offers":
-        return <div>Offers content here</div>;
+        return <div className="text-sm text-gray-600">Offers content here</div>;
       case "Rejected":
-        return <div>Rejected Offers content here</div>;
+        return <div className="text-sm text-gray-600">Rejected offers</div>;
       default:
         return null;
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <header className="flex flex-col gap-6 mt-6 mb-3">
-        <h1 className="text-3xl font-semibold text-[#2A1D52]">Bookings</h1>
+    <div className="max-w-6xl mx-auto px-6 py-8">
+      <header className="flex flex-col gap-6">
+        <h1 className="text-4xl font-bold text-[#2A1D52]">Bookings</h1>
 
-        <div className="relative max-w-[400px]">
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            {/* search icon */}
+        <div className="relative max-w-lg">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 text-gray-500"
+              className="h-4 w-4 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -45,19 +48,22 @@ export default function BookingsPage() {
             </svg>
           </div>
           <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
-            className="w-full bg-[#EBECEE] pl-10 pr-3 py-2 rounded-2xl focus:outline-none"
+            className="w-full bg-[#EBECEE] pl-12 pr-4 py-3 rounded-xl focus:outline-none"
           />
         </div>
       </header>
 
-      <EventTabs
-        tabs={["New", "Offers", "Rejected"]}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-
-      <div className="py-4">{renderContent()}</div>
+      <div className="mt-8">
+        <EventTabs
+          tabs={["New", "Offers", "Rejected"]}
+          activeTab={activeTab}
+          onTabChange={(t) => setActiveTab(t as any)}
+        />
+        <div className="py-6">{renderContent()}</div>
+      </div>
     </div>
   );
 }
