@@ -1,20 +1,20 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import bgImage from "../../assets/images/bgImage.png";
-import adaImage from "../../assets/svgs/addImage.svg";
-import FullMapImage from "../../assets/images/FullMap.png";
-import TeamMembers from "./TeamMembers";
+import bgImage from "../../../../assets/images/bgImage.png";
+import addImage from "../../../../assets/svgs/addImage.svg";
+import FullMapImage from "../../../../assets/images/FullMap.png";
 import Link from "next/link";
 import LocationIcon from "components/icons/LocationIcon";
-import CalenderIcon from "components/icons/CalenderIcon";
 import ClockIcon from "components/icons/ClockIcon";
 import ChairIcon from "components/icons/ChairIcon";
 import MessageIcon from "components/icons/MessageIcon";
 import ThemeIcon from "components/icons/ThemeIcon";
 import GuestIcon from "components/icons/GuestIcon";
 import PencilIconEdit from "components/icons/PencilIconEdit";
-import { ThemeConfig } from "types/theme";
+import { Theme } from "types";
+import TeamMembers from "components/event-sittings/TeamMembers";
+import CalendarIcon from "components/icons/CalendarIcon";
 
 const icons = [
   { label: "Edit", icon: <PencilIconEdit /> },
@@ -48,7 +48,7 @@ export function ViewButton() {
 
 // details component
 interface DetailsProps {
-  theme: ThemeConfig;
+  theme: Theme; // Use the Theme type instead of ThemeConfig
   onThemeClick: () => void;
 }
 
@@ -57,7 +57,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
     <div className={`py-4 w-full ${theme.styles.contentBg}`}>
       <div className="flex flex-col md:flex-row md:gap-4 gap-8 w-full">
         <div className="md:max-w-[60%] w-full">
-          <div className="h-[317px] w-full">
+          <div className="md:h-[317px] xl:h-[400px] w-full">
             <Image
               src={bgImage}
               alt="Background Image"
@@ -71,7 +71,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
             <div className="-mt-14 z-20 justify-center flex w-full whitespace-nowrap">
               <div className="flex items-center">
                 <Image
-                  src={adaImage}
+                  src={addImage}
                   alt="Add Image"
                   width={500}
                   height={500}
@@ -136,7 +136,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
               </div>
 
               <div className="flex gap-2 text-neutral-black test-sm md:text-base  items-center">
-                <CalenderIcon /> Sat, Aug 20
+                <CalendarIcon /> Sat, Aug 20
               </div>
             </div>
             <div className="flex gap-2 items-center text-sm md:text-base">
@@ -154,14 +154,17 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
                 onClick={label === "Theme" ? onThemeClick : undefined} // Opens theme selector when Theme icon is clicked
               >
                 <div
-                  className={`${theme.styles.cardBg
-                    } rounded-full p-4 hover:scale-105 ${theme.styles.shadowStyle}`}
+                  className={`${
+                    theme.styles.cardBg
+                  } rounded-full p-4 hover:scale-105 cursor-pointer ${theme.styles.shadowStyle}`}
                 >
                   {React.cloneElement(icon, {
                     className: `md:w-8 md:h-8 ${theme.styles.primaryText}`,
                   })}
                 </div>
-                <h1 className={`text-sm ${theme.styles.primaryText} font-medium`}>
+                <h1
+                  className={`text-sm ${theme.styles.primaryText} font-medium`}
+                >
                   {label}
                 </h1>
               </div>
@@ -169,9 +172,7 @@ export default function Details({ theme, onThemeClick }: DetailsProps) {
           </div>
 
           <div className="pt-2">
-            <Link
-              href={`/event-planner/events/${event.slug}/create-sitting-chart`}
-            >
+            <Link href={`/planner/events/${event.slug}/create-sitting-chart`}>
               <div className="w-full h-[107px] bg-gradient-primary rounded-2xl gap-4 flex text-primary-light items-center justify-start p-4">
                 <ChairIcon className="w-10 h-10" />
                 <div>

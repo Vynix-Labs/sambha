@@ -5,7 +5,7 @@ type CalenderIconProps = {
   className?: string;
 };
 
-export default function CalenderIcon({ className }: CalenderIconProps) {
+export default function CalendarIcon({ className }: CalenderIconProps) {
   return (
     <>
       <svg
